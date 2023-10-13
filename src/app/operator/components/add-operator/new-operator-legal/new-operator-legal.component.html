@@ -1,0 +1,162 @@
+<div [formGroup]="addOperatorForm">
+  <div formArrayName="cpoDocuments" class="legal-container">
+    <div
+      class="legal-section"
+      *ngFor="let docControl of docControls; let i = index"
+      [formGroupName]="i">
+      <h4 class="new-operator-tab-title">
+        {{ getDocumentLabel(docControl.value.documentType) }}
+      </h4>
+      <div class="inputs-grid grid-of-3">
+        <div class="input-container span-2">
+          <label for="document{{ i }}"
+            >{{ getDocumentLabel(docControl.value.documentType) }} Document<span
+              class="required-star"
+              >*</span
+            ></label
+          >
+          <p class="file-choose__note">
+            File must be of extension
+            <span class="file-choose__note--bold">.pdf</span> and a max size of
+            <span class="file-choose__note--bold">10 MB</span>
+          </p>
+          <p-fileUpload
+            [ngClass]="{
+              'file-choose': true,
+              'has-error': shouldShowDocumentError(i),
+              'no-data': !isDocumentSelected(i)
+            }"
+            [id]="'document' + i"
+            name="document"
+            [multiple]="false"
+            accept=".pdf"
+            [maxFileSize]="10000000"
+            chooseLabel="Browse"
+            chooseStyleClass="p-button-outlined"
+            (onSelect)="onSelect($event, i)"
+            (onClear)="removeDocument(i)"
+            (onRemove)="removeDocument(i)"
+            [showUploadButton]="false"
+            [showCancelButton]="false"
+            cancelStyleClass="p-button-danger"
+            aria-describedby="document-help">
+            <!-- ⏫ invalidFileTypeMessageDetail="" -->
+            <ng-template pTemplate="content">
+              <div class="file-choose__content">
+                <p class="file-choose__info">
+                  <img
+                    src="../../../../../assets/icons/file-icon.svg"
+                    alt="file icon" />
+                  {{ isDocumentSelected(i) ? '' : 'Select file to upload ...' }}
+                </p>
+              </div>
+            </ng-template>
+          </p-fileUpload>
+
+          <p
+            class="input-error-helper"
+            *ngIf="shouldShowDocumentError(i)"
+            id="document-help">
+            Upload operator's
+            {{ getDocumentLabel(docControl.value.documentType) | lowercase }}
+            document
+          </p>
+        </div>
+      </div>
+
+      <div class="inputs-grid grid-of-3">
+        <div class="input-container">
+          <label for="documentId{{ i }}"
+            >{{ getDocumentLabel(docControl.value.documentType) }} ID<span
+              class="required-star"
+              >*</span
+            ></label
+          >
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="
+                addOperatorForm.get('cpoDocuments.' + i + '.documentId')
+              "
+              [targetInput]="documentId"></i>
+            <input
+              [id]="'documentId' + i"
+              formControlName="documentId"
+              pInputText
+              placeholder="985032"
+              type="text"
+              aria-describedby="documentId-help"
+              #documentId
+              bsInputBetterValidation
+              [formSubmitted]="formSubmitted"
+              [helperElement]="documentId_help" />
+          </div>
+          <p #documentId_help class="input-error-helper" id="documentId-help">
+            {{
+              addOperatorForm
+                .get('cpoDocuments.' + i + '.documentId')
+                ?.hasError('pattern')
+                ? 'Only numbers allowed'
+                : "Enter operator's " +
+                  (getDocumentLabel(docControl.value.documentType)
+                    | lowercase) +
+                  ' id'
+            }}
+          </p>
+        </div>
+        <div class="input-container">
+          <label for="issuanceOffice{{ i }}"
+            >Issuance Office
+            <span class="optional-mark"> (optional)</span></label
+          >
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="
+                addOperatorForm.get('cpoDocuments.' + i + '.issuanceOffice')
+              "
+              [targetInput]="issuanceOffice"></i>
+            <input
+              #issuanceOffice
+              pInputText
+              placeholder="Giza"
+              type="text"
+              [id]="'issuanceOffice' + i"
+              formControlName="issuanceOffice" />
+          </div>
+        </div>
+
+        <div class="input-container">
+          <label for="issuanceDate{{ i }}"
+            >Issuance Date <span class="optional-mark"> (optional)</span></label
+          >
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="
+                addOperatorForm.get('cpoDocuments.' + i + '.issuanceDate')
+              "
+              [targetInput]="commercial_issuance_date"></i>
+            <p-calendar
+              #commercial_issuance_date
+              placeholder="Select Date"
+              [showIcon]="true"
+              [touchUI]="isTouchDevice()"
+              dateFormat="dd/mm/yy"
+              [inputId]="'issuanceDate' + i"
+              formControlName="issuanceDate"></p-calendar>
+          </div>
+        </div>
+      </div>
+
+      <input
+        type="hidden"
+        formControlName="documentType"
+        [value]="docControl.value.documentType" />
+      <p-divider *ngIf="i !== docControls.length - 1"></p-divider>
+    </div>
+  </div>
+</div>

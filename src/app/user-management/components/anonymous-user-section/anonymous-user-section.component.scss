@@ -1,0 +1,158 @@
+@import './variables';
+.left-side {
+  align-self: stretch;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  // padding: 3.2rem;
+  border-radius: 0.8rem;
+}
+
+.Content-left {
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 4rem;
+  padding: 0;
+}
+
+.Fast-Efficient-and-Productive {
+  margin: 0 0 1.6rem;
+  font-size: 4rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: normal;
+
+  color: $gray-900;
+}
+
+.Main-Logo {
+  width: 8.68rem;
+  display: none;
+}
+
+.Bullets {
+  //   height: 42.8rem;
+  align-self: stretch;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 3.2rem;
+  padding: 0;
+}
+
+.Icon {
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+  background-color: #def2f9;
+}
+
+.Heading-Bullet {
+  height: 4rem;
+  align-self: stretch;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0;
+}
+
+img.IconsImagesflash {
+  width: auto;
+}
+
+.Control-charge-points-and-connectors {
+  color: #101828;
+  font-size: 1.6rem;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.Description {
+  margin-inline-start: 5.2rem;
+  margin-top: 0.8rem;
+  color: #475467;
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+
+.Content-Right {
+  width: 44rem;
+  height: 38.1rem;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 3.2rem;
+  padding: 0;
+}
+
+.link {
+  width: 12.4rem;
+  height: 1.1rem;
+  flex-grow: 0;
+  font-family: Barlow;
+  font-size: 1.6rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+
+  color: var(--gray-700);
+}
+
+.Links {
+  width: 100%;
+  width: 100%;
+  height: 1.1rem;
+  width: 100%;
+  height: 1.1rem;
+  flex-grow: 0;
+  padding-top: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 0;
+}
+
+.Content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 0;
+}
+// MEDIA
+
+@media only screen and (min-width: 414px) {
+}
+@media only screen and (min-width: 744px) {
+  .Main-Logo {
+    display: block;
+  }
+
+  .Fast-Efficient-and-Productive {
+    margin: 3.2rem 0 1.6rem;
+  }
+}
+
+@media only screen and (min-width: 1366px) {
+}

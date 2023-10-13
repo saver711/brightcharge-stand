@@ -1,0 +1,49 @@
+.p-breadcrumb {
+  // background: $breadcrumbBg;
+  //   border: $breadcrumbBorder;
+  border-radius: $borderRadius;
+  //   padding: $breadcrumbPadding;
+  padding-inline-end: 3.2rem;
+  padding-top: 2.4rem;
+  padding-bottom: 2.4rem;
+
+  .p-breadcrumb-list {
+    li {
+      .p-menuitem-link {
+        transition: $listItemTransition;
+        border-radius: $borderRadius;
+
+        // &:focus {
+        //   @include focused();
+        // }
+
+        .p-menuitem-text {
+          // color: $breadcrumbItemTextColor;
+          color: $gray-700;
+          font-size: 1.6rem;
+        }
+
+        .p-menuitem-icon {
+          color: $breadcrumbItemIconColor;
+        }
+      }
+
+      &.p-menuitem-separator {
+        margin: 0 $inlineSpacing 0 $inlineSpacing;
+        color: $breadcrumbSeparatorColor;
+      }
+
+      &:last-child {
+        .p-menuitem-text {
+          // color: $breadcrumbLastItemTextColor;
+          color: $gray-900;
+          font-weight: 500;
+        }
+
+        .p-menuitem-icon {
+          color: $breadcrumbLastItemIconColor;
+        }
+      }
+    }
+  }
+}

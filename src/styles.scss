@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+@import './assets/theme/volt-theme/theme.scss';
+@import 'primeng/resources/primeng.min.css';
+@import 'primeicons/primeicons.css';
+
+// DIRECTIONS RESET
+html[dir='rtl'] {
+  .public__actions__back-to-login i {
+    transform: rotate(180deg);
+  }
+}
+// ./ DIRECTIONS

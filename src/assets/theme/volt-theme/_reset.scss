@@ -1,0 +1,421 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-size: 10px;
+
+  &:focus-within {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  min-height: 100vh;
+  // line-height: 1.5;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased !important;
+  overflow-x: hidden;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+  display: inline-block;
+  background-color: transparent;
+}
+
+ul {
+  list-style: none;
+}
+
+select,
+input,
+textarea,
+button {
+  // background-color: none;
+  // outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 1.6rem;
+  // &:active {
+  //   outline: none;
+  // }
+}
+
+button {
+  overflow: visible;
+  cursor: pointer;
+  border: 0;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
+textarea {
+  resize: vertical;
+  overflow: auto;
+}
+
+span {
+  display: inline-block;
+}
+input::-webkit-input-placeholder {
+  font-size: 1.6rem;
+}
+
+input::-ms-input-placeholder {
+  font-size: 1.6rem;
+}
+
+input:-ms-input-placeholder {
+  font-size: 1.6rem;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+
+  &::-moz-placeholder {
+    font-size: 1.6rem;
+  }
+
+  &:-moz-placeholder {
+    font-size: 1.6rem;
+  }
+
+  &::placeholder {
+    font-size: 1.6rem;
+  }
+}
+
+input[type='submit'] {
+  cursor: pointer;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+img,
+picture {
+  width: 100%;
+  display: block;
+  border: none;
+}
+
+/* ∞∞ IE ∞∞ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+legend {
+  border: none;
+  padding: 0;
+}
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+/* ∞∞ moz ∞∞ */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+
+// /* ∞∞ webkit ∞∞ */
+blockquote {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+}
+
+/* fix Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid $gray-600;
+  -webkit-text-fill-color: $gray-800;
+  -webkit-box-shadow:
+    inset 0 0 0 1px transparent,
+    inset 0 0 0 100px transparent;
+  box-shadow:
+    inset 0 0 0 1px transparent,
+    inset 0 0 0 100px transparent;
+  transition:
+    background-color 600000s 0s,
+    color 600000s 0s;
+  background-color: transparent;
+}
+
+fieldset {
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  -webkit-padding-before: 0;
+  -webkit-padding-start: 0;
+  -webkit-padding-end: 0;
+  -webkit-padding-after: 0;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  height: auto;
+}
+
+input[type='search'] {
+  -webkit-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration,
+progress {
+  -webkit-appearance: none;
+}
+
+// hr
+hr {
+  height: 1px;
+  background-color: $gray-500;
+}
+
+// RESET PRIMENG
+// .p-inputtext.ng-dirty.ng-invalid.no-error,
+// p-password.ng-invalid.ng-dirty.no-error > .p-password > .p-inputtext {
+//   border-color: $gray-800 !important;
+// }
+
+[dir='rtl'] {
+  .pi-angle-left,
+  .pi-angle-right,
+  chevronrighticon,
+  chevronlefticon {
+    transform: rotate(180deg);
+  }
+}
+
+.no-border .p-message {
+  border-width: 0 !important;
+}
+
+.margin {
+  .p-message-wrapper {
+    margin-top: 2.4rem;
+  }
+}
+.p-message {
+  position: relative;
+  padding-right: 5rem;
+
+  [dir='rtl'] & {
+    padding-right: 0;
+    padding-left: 5rem;
+  }
+
+  .p-message-wrapper {
+    // margin-top: 2.4rem;
+
+    i.pi:first-child {
+      margin-inline-end: 1rem;
+    }
+
+    i.pi:last-child,
+    button:last-child {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+
+      [dir='rtl'] & {
+        right: auto;
+        left: 1.5rem;
+      }
+    }
+  }
+}
+
+.p-message-wrapper {
+  // margin-top: 2.4rem;
+
+  i.pi:first-child {
+    margin-inline-end: 1rem;
+  }
+}
+
+.message-close {
+  margin-inline-start: auto;
+  cursor: pointer;
+}
+
+.p-inputswitch {
+  display: flex !important;
+}
+
+.p-input-icon-left .p-password-input {
+  padding-inline-start: 4.5rem;
+}
+
+.p-splitbutton.split-clean button {
+  background: none;
+  color: $gray-900;
+}
+
+.p-dropdown.dropdown-clean {
+  border: 0;
+
+  .p-inputtext {
+    padding: 0;
+    padding-inline-end: 0.8rem;
+  }
+
+  svg {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+
+  font-size: 1.6rem;
+  color: $gray-900;
+  font-weight: 500;
+}
+
+.p-input-icon-left > i,
+.p-input-icon-left > .p-icon-wrapper,
+.p-input-icon-right > i,
+.p-input-icon-right > .p-icon-wrapper {
+  transform: translateY(-50%);
+  margin-top: 0;
+}
+
+eyeicon,
+eyeslashicon {
+  cursor: pointer;
+}
+
+button.p-button:not(.p-datepicker-trigger):disabled {
+  background-color: $gray-600;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.p-calendar,
+.p-dropdown {
+  width: 100%;
+}
+
+.p-dropdown-items-wrapper {
+  margin-bottom: 1rem;
+}
+
+// to fix date overlay in touch devices
+body > .p-datepicker-mask {
+  z-index: 1099 !important;
+}
+
+.p-calendar-w-btn .p-inputtext {
+  padding-left: 4.4rem;
+  border-top-right-radius: 0.8rem !important;
+  border-bottom-right-radius: 0.8rem !important;
+}
+.p-calendar-w-btn .p-datepicker-trigger {
+  background: none;
+  position: absolute;
+  height: 100%;
+  left: 0;
+  border-top-left-radius: 0.8rem;
+  border-bottom-left-radius: 0.8rem;
+
+  [dir='rtl'] & {
+    left: auto;
+    right: 0;
+  }
+
+  &:hover,
+  &:active {
+    background: none;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  calendaricon {
+    color: $gray-600;
+
+    .p-icon {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+}
+
+.p-calendar {
+  .p-button.p-button-icon-only {
+    width: auto;
+    padding: 1.6rem 0.8rem 1.4rem 1.3rem;
+
+    [dir='rtl'] & {
+      padding: 1.6rem 1.3rem 1.4rem 0.8rem;
+    }
+  }
+}
+
+// Breadcrumb
+.p-breadcrumb-list {
+  chevronrighticon svg {
+    width: 0.8rem !important;
+    height: 0.8rem !important;
+  }
+}
+
+// ./ RESET PRIMENG

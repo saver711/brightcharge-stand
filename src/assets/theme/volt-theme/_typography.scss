@@ -1,0 +1,52 @@
+html {
+  font-family: 'Barlow', sans-serif;
+}
+.heading-1-typo,
+h1 {
+  font-size: 4rem;
+  font-weight: bold;
+}
+.heading-2-typo,
+h2 {
+  font-size: 3.2rem;
+  font-weight: bold;
+}
+.heading-3-typo,
+h3 {
+  font-size: 2.8rem;
+  font-weight: bold;
+}
+.heading-4-typo,
+h4 {
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+.heading-5-typo,
+h5 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.heading-6-typo,
+h6 {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+.button-typo,
+button {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.label-typo,
+label {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.paragraph-typo,
+p {
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+html[dir='rtl'] {
+  font-family: 'Almarai', sans-serif;
+}

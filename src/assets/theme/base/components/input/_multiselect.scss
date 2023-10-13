@@ -1,0 +1,233 @@
+@use 'sass:math';
+
+.p-multiselect {
+  background: $inputBg;
+  border: $inputBorder;
+  transition: $formElementTransition;
+  border-radius: $borderRadius;
+  width: 100%;
+
+  &:not(.p-disabled):hover {
+    border-color: $inputHoverBorderColor;
+  }
+  &:not(.p-disabled).p-focus {
+    @include focused-input();
+  }
+
+  .p-multiselect-label {
+    padding: $inputPadding;
+    transition: $formElementTransition;
+
+    span {
+      font-size: 1.6rem;
+      color: $gray-800;
+    }
+
+    &.p-placeholder {
+      color: $inputPlaceholderTextColor;
+    }
+  }
+
+  &.p-multiselect-chip {
+    .p-multiselect-label {
+      gap: $inlineSpacing;
+    }
+    .p-multiselect-token {
+      padding: math.div(nth($inputPadding, 1), 2) nth($inputPadding, 2);
+      background: $highlightBg;
+      color: $highlightTextColor;
+      border-radius: $borderRadius;
+
+      .p-multiselect-token-icon {
+        margin-left: $inlineSpacing;
+      }
+    }
+  }
+
+  .p-multiselect-trigger {
+    background: transparent;
+    color: $inputIconColor;
+    // width: $inputGroupAddOnMinWidth;
+    padding-inline-end: 1.5rem;
+    border-top-right-radius: $borderRadius;
+    border-bottom-right-radius: $borderRadius;
+
+    svg {
+      color: $gray-600;
+    }
+  }
+}
+
+.p-inputwrapper-filled {
+  .p-multiselect {
+    &.p-multiselect-chip {
+      .p-multiselect-label {
+        padding: math.div(nth($inputPadding, 1), 2) nth($inputPadding, 2);
+      }
+    }
+  }
+}
+
+.p-multiselect-panel {
+  background: $inputOverlayBg;
+  color: $inputListTextColor;
+  border: $inputOverlayBorder;
+  border-radius: $borderRadius;
+  box-shadow: $inputOverlayShadow;
+  margin-bottom: 1.5rem;
+
+  .p-checkbox {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .p-checkbox-box {
+    border-radius: 4px;
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .p-multiselect-header {
+    // padding: $inputListHeaderPadding;
+    padding: 1rem 1.5rem;
+    border-bottom: $inputListHeaderBorder;
+    color: $inputListHeaderTextColor;
+    background: $inputOverlayHeaderBg;
+    margin: $inputListHeaderMargin;
+    border-top-right-radius: $borderRadius;
+    border-top-left-radius: $borderRadius;
+
+    .p-multiselect-filter-container {
+      .p-inputtext {
+        // padding-right: nth($inputPadding, 2) + $primeIconFontSize;
+        padding-inline-start: 4.2rem;
+      }
+
+      .p-multiselect-filter-icon {
+        left: nth($inputPadding, 2);
+
+        [dir='rtl'] & {
+          left: auto;
+          right: nth($inputPadding, 2);
+        }
+        color: $inputIconColor;
+        margin-top: 0 !important;
+        transform: translateY(-50%);
+      }
+    }
+
+    .p-multiselect-close {
+      @include action-icon();
+    }
+  }
+
+  .p-multiselect-items {
+    padding: $inputListPadding;
+
+    .p-multiselect-item {
+      margin: $inputListItemMargin;
+      // padding: $inputListItemPadding;
+      padding: 1rem 1.5rem;
+      border: $inputListItemBorder;
+      color: $inputListItemTextColor;
+      background: $inputListItemBg;
+      transition: $listItemTransition;
+      border-radius: $inputListItemBorderRadius;
+
+      .select-main-value,
+      .select-secondary-value {
+        font-size: 1.6rem;
+      }
+
+      .select-main-value {
+        font-weight: 500;
+        color: $gray-900;
+      }
+
+      .select-secondary-value {
+        color: $gray-700;
+      }
+
+      &.p-highlight {
+        // color: $highlightTextColor;
+        background: $highlightBg;
+        .select-main-value {
+          color: $white;
+        }
+        .select-secondary-value {
+          color: $gray-500;
+        }
+      }
+
+      &:not(.p-highlight):not(.p-disabled):hover {
+        color: $inputListItemTextHoverColor;
+        background: $inputListItemHoverBg;
+      }
+
+      &:focus {
+        @include focused-listitem();
+      }
+
+      .p-checkbox {
+        margin-inline-end: 1rem;
+      }
+    }
+
+    .p-multiselect-item-group {
+      margin: $submenuHeaderMargin;
+      padding: $submenuHeaderPadding;
+      color: $submenuHeaderTextColor;
+      background: $submenuHeaderBg;
+      font-weight: $submenuHeaderFontWeight;
+    }
+
+    .p-multiselect-empty-message {
+      padding: $inputListItemPadding;
+      color: $inputListItemTextColor;
+      background: $inputListItemBg;
+    }
+  }
+}
+
+p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
+  @include invalid-input();
+}
+
+.p-input-filled {
+  .p-multiselect {
+    background: $inputFilledBg;
+
+    &:not(.p-disabled):hover {
+      background-color: $inputFilledHoverBg;
+    }
+
+    &:not(.p-disabled).p-focus {
+      background-color: $inputFilledFocusBg;
+    }
+  }
+}
+
+p-multiselect.p-multiselect-clearable {
+  .p-multiselect-label-container {
+    padding-inline-end: nth($inputPadding, 2) + $primeIconFontSize;
+  }
+  timesicon {
+    display: inline;
+  }
+
+  .p-multiselect-clear-icon {
+    color: $gray-700;
+    // right: $inputGroupAddOnMinWidth;
+    right: 4.1rem;
+    margin-top: 0 !important;
+    transform: translateY(-50%);
+
+    [dir='rtl'] & {
+      right: auto;
+      left: 4.1rem;
+    }
+  }
+}
+.p-multiselect-filter-container {
+  margin: 0 1rem;
+}

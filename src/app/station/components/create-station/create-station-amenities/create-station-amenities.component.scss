@@ -1,0 +1,17 @@
+@import 'variables';
+.amenities {
+  h2 {
+    color: $gray-900;
+    font-size: 2.4rem;
+    margin-bottom: 2.5rem;
+  }
+  .p-input-icon-left {
+    margin-bottom: 3rem;
+    width: 30rem;
+  }
+  .checkboxs {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    display: grid;
+    gap: 2.5rem 0;
+  }
+}

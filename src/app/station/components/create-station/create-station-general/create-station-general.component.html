@@ -1,0 +1,168 @@
+<div class="flex flex-col gap-y-9">
+  <h4 class="c-gray-900 mb-2.4">Location</h4>
+  <google-map
+    height="400px"
+    width="100%"
+    [center]="center"
+    [options]="options"
+    (mapDblclick)="addMarker($event)">
+    <map-marker [position]="markerPosition" [options]="markerOptions" />
+  </google-map>
+  <form [formGroup]="generalInfoGroup" class="grid grid-cols-4 gap-2.4 mt-2.4">
+    <!------------ LOCATION NAME ------------>
+    <div class="flex flex-col gap-y-.8 input-group">
+      <label for="name">Location Name</label>
+      <input
+        pInputText
+        id="name"
+        aria-label="name"
+        placeholder="Ex. Ikea CFC Parking"
+        formControlName="name" />
+      <small
+        id="name-required-error"
+        class="error-message"
+        *ngIf="name.touched && name.errors">
+        Enter station name
+      </small>
+    </div>
+    <!------------ ADDRESS ------------>
+    <div class="flex flex-col gap-y-.8 input-group">
+      <label for="address">Address</label>
+      <input
+        pInputText
+        id="address"
+        aria-label="address"
+        placeholder="Ex. Street 505"
+        formControlName="address" />
+      <small
+        id="address-required-error"
+        class="error-message"
+        *ngIf="address.touched && address.errors">
+        Enter station address
+      </small>
+    </div>
+    <!------------ LATITUDE ------------>
+    <div class="flex flex-col gap-y-.8 input-group">
+      <label for="latitude">Latitude</label>
+      <input
+        pInputText
+        id="latitude"
+        [bsAlphaNumeric]="'numeric'"
+        aria-label="latitude"
+        placeholder="29.9844689"
+        formControlName="latitude" />
+      <small
+        id="latitude-required-error"
+        class="error-message"
+        *ngIf="latitude.touched && latitude.errors">
+        Enter station latitude or choose location on map
+      </small>
+    </div>
+    <!------------ LONGITUDE ------------>
+    <div class="flex flex-col gap-y-.8 input-group">
+      <label for="longitude">Longitude</label>
+      <input
+        pInputText
+        id="longitude"
+        [bsAlphaNumeric]="'numeric'"
+        aria-label="longitude"
+        placeholder="1357876,13"
+        formControlName="longitude" />
+      <small
+        id="longitude-required-error"
+        class="error-message"
+        *ngIf="longitude.touched && longitude.errors">
+        Enter station longitude or choose location on map
+      </small>
+    </div>
+    <!------------ ACCESSIBILITY ------------>
+    <div class="flex flex-col gap-y-.8 input-group">
+      <label for="location-access-type">Accessibility</label>
+      <p-dropdown
+        id="location-access-type"
+        inputId="accessibility"
+        [options]="locationAccessTypes"
+        placeholder="Select accessibility"
+        optionLabel="label"
+        optionValue="value"
+        formControlName="locationAccessType" />
+      <small
+        id="location-access-type-error"
+        class="error-message"
+        *ngIf="locationAccessType.touched && locationAccessType.errors">
+        Select station accessibility
+      </small>
+    </div>
+    <!------------ COUNTRY ------------>
+    <div class="flex flex-col gap-y-.8 input-group">
+      <label for="country">Country</label>
+      <p-dropdown
+        id="country"
+        [lazy]="true"
+        placeholder="Select station’s country"
+        inputId="country-input"
+        [options]="countries"
+        optionLabel="name"
+        optionValue="id"
+        (onChange)="handleCountryChange($event)"
+        formControlName="country">
+        <ng-template pTemplate="empty">
+          <bs-loading message="" *ngIf="!countries" />
+        </ng-template>
+      </p-dropdown>
+      <small
+        id="country-type-error"
+        class="error-message"
+        *ngIf="country.touched && country.errors">
+        Select station’s country
+      </small>
+    </div>
+    <!------------ CITY ------------>
+    <div class="flex flex-col gap-y-.8 input-group">
+      <label for="city">City</label>
+      <p-dropdown
+        id="city"
+        [lazy]="true"
+        placeholder="Select station’s city"
+        inputId="city-input"
+        [options]="cities"
+        optionLabel="name"
+        optionValue="id"
+        (onChange)="handleCityChange($event)"
+        formControlName="cityId">
+        <ng-template pTemplate="empty">
+          <bs-loading message="" *ngIf="!cities" />
+        </ng-template>
+      </p-dropdown>
+      <small
+        id="city-type-error"
+        class="error-message"
+        *ngIf="cityId.touched && cityId.errors">
+        Select station’s city
+      </small>
+    </div>
+    <!------------ STATE ------------>
+    <div class="flex flex-col gap-y-.8 input-group">
+      <label for="city">State/Province</label>
+      <p-dropdown
+        id="state"
+        [lazy]="true"
+        placeholder="Select station’s state"
+        inputId="state-input"
+        [options]="states"
+        optionLabel="name"
+        optionValue="id"
+        formControlName="stateId">
+        <ng-template pTemplate="empty">
+          <bs-loading message="" *ngIf="!states" />
+        </ng-template>
+      </p-dropdown>
+      <small
+        id="state-type-error"
+        class="error-message"
+        *ngIf="stateId.touched && stateId.errors">
+        Select station’s state
+      </small>
+    </div>
+  </form>
+</div>

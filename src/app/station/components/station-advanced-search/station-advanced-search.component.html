@@ -1,0 +1,336 @@
+<p-dialog
+  [maximizable]="true"
+  (onShow)="onShow()"
+  class="search-dialog"
+  [dismissableMask]="true"
+  header="Advanced Search"
+  [(visible)]="visibility"
+  [position]="position"
+  [modal]="true"
+  (onHide)="close()"
+  [draggable]="false">
+  <form
+    [formGroup]="searchForm"
+    class="form-block search-form"
+    (ngSubmit)="onSubmit()">
+    <div class="search-form__block">
+      <h5 class="form-block__title">General Information</h5>
+      <div class="inputs-grid grid-of-3">
+        <div class="input-container">
+          <label for="name">Name</label>
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('name')"
+              [targetInput]="name"></i>
+            <input
+              #name
+              id="name"
+              pInputText
+              placeholder="Ex. Cairo festival city"
+              type="text"
+              formControlName="name" />
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="address">Address</label>
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('address')"
+              [targetInput]="address"></i>
+            <input
+              #address
+              id="address"
+              pInputText
+              placeholder="Ex. Street 505"
+              type="text"
+              formControlName="address" />
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="locationAccessType">Accessibility</label>
+          <div class="station-select">
+            <p-dropdown
+              optionValue="value"
+              optionLabel="label"
+              [showClear]="true"
+              inputId="locationAccessType"
+              formControlName="locationAccessType"
+              [options]="accessType"
+              [autoDisplayFirst]="false"
+              placeholder="Select accessibility"
+              [overlayOptions]="getDropdownOverlayOptions()"></p-dropdown>
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="country">Country</label>
+          <div class="station-select">
+            <p-dropdown
+              id="country"
+              [lazy]="true"
+              placeholder="Select Country"
+              inputId="country-input"
+              [options]="countries"
+              optionLabel="name"
+              [filter]="true"
+              filterBy="name"
+              optionValue="id"
+              (onChange)="handleCountryChange($event)"
+              formControlName="country">
+              <ng-template pTemplate="empty">
+                <bs-loading message="" *ngIf="!countries" />
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="city">City</label>
+          <div class="station-select">
+            <p-dropdown
+              id="city"
+              [lazy]="true"
+              placeholder="Select City"
+              inputId="city-input"
+              [options]="cities"
+              optionLabel="name"
+              optionValue="id"
+              [filter]="true"
+              filterBy="name"
+              (onChange)="handleCityChange($event)"
+              formControlName="city">
+              <ng-template pTemplate="empty">
+                <bs-loading message="" *ngIf="!cities" />
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="state">State/Province</label>
+          <div class="station-select">
+            <p-dropdown
+              id="state"
+              [lazy]="true"
+              placeholder="Select station’s state"
+              inputId="state-input"
+              [options]="states"
+              optionLabel="name"
+              optionValue="id"
+              formControlName="state">
+              <ng-template pTemplate="empty">
+                <bs-loading message="" *ngIf="!states" />
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-divider></p-divider>
+    <div class="search-form__block">
+      <h5 class="form-block__title">Amenities</h5>
+      <div class="inputs-grid grid-of-4">
+        <div *ngFor="let amenity of amenities" class="items-center flex gap-.8">
+          <p-checkbox
+            name="amenities"
+            [value]="amenity.value"
+            [formControl]="amenitiesControl"
+            [inputId]="amenity.name"></p-checkbox>
+          <img
+            src="assets/icons/{{ amenity.icon }}"
+            class="w-2.4 h-2.4"
+            alt="{{ amenity.icon }}" />
+          <label [for]="amenity.name">{{ amenity.name }}</label>
+        </div>
+      </div>
+    </div>
+    <p-divider></p-divider>
+    <div class="search-form__block">
+      <h5 class="form-block__title">Audit</h5>
+      <div class="inputs-grid grid-of-3">
+        <div class="input-container">
+          <label for="createdBy">Created By</label>
+          <p-multiSelect
+            [filter]="true"
+            [showClear]="true"
+            inputId="createdBy"
+            [options]="users"
+            formControlName="createdBy"
+            filterBy="name,email"
+            defaultLabel="Select User"
+            [overlayOptions]="getMultiselectOverlayOptions()">
+            <ng-template let-value pTemplate="selectedItems">
+              <!-- one user is selected -->
+              <span *ngIf="searchForm.get('createdBy')?.value?.length === 1">
+                {{ searchForm.get('createdBy')?.value?.[0]?.username }}
+              </span>
+
+              <!-- more than one user -->
+              <span
+                *ngIf="
+                  !!searchForm.get('createdBy')?.value?.length &&
+                  searchForm.get('createdBy')?.value?.length !== 1
+                ">
+                {{ searchForm.get('createdBy')?.value?.length }} Users selected
+              </span>
+
+              <!-- No selections -->
+              <span
+                *ngIf="
+                  !searchForm.get('createdBy')?.value ||
+                  searchForm.get('createdBy')?.value?.length === 0
+                ">
+                Select User
+              </span>
+            </ng-template>
+
+            <ng-template let-user pTemplate="item">
+              <div>
+                <div class="select-main-value">{{ user.username }}</div>
+                <div class="select-secondary-value">{{ user.email }}</div>
+              </div>
+            </ng-template>
+          </p-multiSelect>
+        </div>
+        <div class="input-container">
+          <label for="creationDate">Created At (From)</label>
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('creationDate')"
+              [targetInput]="creationDate"></i>
+            <p-calendar
+              #creationDate
+              placeholder="Select Date"
+              formControlName="creationDate"
+              [showIcon]="true"
+              (onSelect)="handlecreationDateChange($event)"
+              [touchUI]="isTouchDevice()"
+              dateFormat="dd/mm/yy"
+              inputId="creationDate"></p-calendar>
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="creationDateTo">Created At (To)</label>
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('creationDateTo')"
+              [targetInput]="creationDateTo"></i>
+            <p-calendar
+              #creationDateTo
+              placeholder="Select Date"
+              formControlName="creationDateTo"
+              [showIcon]="true"
+              [touchUI]="isTouchDevice()"
+              dateFormat="dd/mm/yy"
+              inputId="creationDateTo"></p-calendar>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <label for="lastModifiedBy">Updated By</label>
+          <p-multiSelect
+            [filter]="true"
+            [showClear]="true"
+            inputId="lastModifiedBy"
+            [options]="users"
+            formControlName="lastModifiedBy"
+            filterBy="name,email"
+            defaultLabel="Select User"
+            [overlayOptions]="getMultiselectOverlayOptions()">
+            <ng-template let-value pTemplate="selectedItems">
+              <!-- one user is selected -->
+              <span
+                *ngIf="searchForm.get('lastModifiedBy')?.value?.length === 1">
+                {{ searchForm.get('lastModifiedBy')?.value?.[0]?.username }}
+              </span>
+
+              <!-- more than one user -->
+              <span
+                *ngIf="
+                  !!searchForm.get('lastModifiedBy')?.value?.length &&
+                  searchForm.get('lastModifiedBy')?.value?.length !== 1
+                ">
+                {{ searchForm.get('lastModifiedBy')?.value?.length }} Users
+                selected
+              </span>
+
+              <!-- No selections -->
+              <span
+                *ngIf="
+                  !searchForm.get('lastModifiedBy')?.value ||
+                  searchForm.get('lastModifiedBy')?.value?.length === 0
+                ">
+                Select User
+              </span>
+            </ng-template>
+
+            <ng-template let-user pTemplate="item">
+              <div>
+                <div class="select-main-value">{{ user.username }}</div>
+                <div class="select-secondary-value">{{ user.email }}</div>
+              </div>
+            </ng-template>
+          </p-multiSelect>
+        </div>
+        <div class="input-container">
+          <label for="lastModifiedDate">Last Updated At (From)</label>
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('lastModifiedDate')"
+              [targetInput]="lastModifiedDate"></i>
+            <p-calendar
+              #lastModifiedDate
+              placeholder="Select Date"
+              formControlName="lastModifiedDate"
+              [showIcon]="true"
+              [touchUI]="isTouchDevice()"
+              (onSelect)="handleLastModifiedDateChange($event)"
+              dateFormat="dd/mm/yy"
+              inputId="lastModifiedDate"></p-calendar>
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="lastModifiedDateTo">Updated At (To)</label>
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('lastModifiedDateTo')"
+              [targetInput]="lastModifiedDateTo"></i>
+            <p-calendar
+              #lastModifiedDateTo
+              placeholder="Select Date"
+              formControlName="lastModifiedDateTo"
+              [showIcon]="true"
+              [touchUI]="isTouchDevice()"
+              dateFormat="dd/mm/yy"
+              inputId="lastModifiedDateTo"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer" class="footer">
+    <!-- SUBMIT -->
+    <p-button
+      [disabled]="searchForm.invalid && !formSubmitted"
+      styleClass=""
+      (click)="onSubmit()"
+      label="Apply Filters"
+      type="button"></p-button>
+    <!-- RESET -->
+    <p-button
+      [disabled]="searchForm.invalid"
+      styleClass=""
+      label="Reset Filters"
+      type="button"
+      (click)="onReset()"></p-button>
+  </ng-template>
+</p-dialog>

@@ -1,0 +1,30 @@
+<h4 class="new-operator-tab-title">Station</h4>
+<form (ngSubmit)="submitForm()" [formGroup]="stationForm">
+  <div class="inputs-grid grid-of-4">
+    <!------------ Station ------------>
+    <div class="input-container">
+      <label for="station">Station<span class="required-star">*</span></label>
+      <p-dropdown
+        [filter]="true"
+        id="locationId"
+        inputId="locationId"
+        [lazy]="true"
+        placeholder="Select Station"
+        [options]="stationOptions"
+        [showClear]="true"
+        optionLabel="name"
+        optionValue="id"
+        formControlName="locationId"
+        bsInputBetterValidation
+        [formSubmitted]="formSubmitted"
+        [helperElement]="stations_help">
+        <ng-template pTemplate="empty">
+          <bs-loading message="" *ngIf="isFetchingStations" />
+        </ng-template>
+      </p-dropdown>
+      <p class="input-error-helper" id="model-help" #stations_help>
+        Select charge point assigned station
+      </p>
+    </div>
+  </div>
+</form>

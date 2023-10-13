@@ -1,0 +1,10 @@
+<div *ngIf="operator">
+  <p>operator works!, operator name is {{ operator.name }}</p>
+  <p-button
+    (click)="editOperator()"
+    label="Edit operator"
+    type="button"></p-button>
+</div>
+<div *ngIf="!operator">
+  <p>Couldn't find this operator</p>
+</div>

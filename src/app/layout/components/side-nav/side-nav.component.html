@@ -1,0 +1,142 @@
+<!-- FIXME: Change routes in all links and add other icons -->
+<div class="view__top-links">
+  <img
+    class="view__logo"
+    src="../../../../assets/images/logo.svg"
+    alt="VoltEdge logo" />
+
+  <div class="view__top-icons">
+    <a
+      pTooltip="Dashboard"
+      class="view__link"
+      routerLink="/dashboard"
+      routerLinkActive="active">
+      <!-- We just need to replace image line-chart-colored with the actual one -->
+      <img
+        [src]="getIconSrc('dashboard', 'line-chart')"
+        alt="dashboard icon link" />
+    </a>
+    <a
+      pTooltip="Operators"
+      class="view__link"
+      routerLink="/operators"
+      routerLinkActive="active">
+      <img
+        [src]="getIconSrc('operators', 'building')"
+        alt="operators icon link" />
+    </a>
+    <button
+      (click)="chPointsSideBarVisibility = true"
+      pTooltip="Charge points"
+      class="view__link"
+      [ngClass]="{
+        active: getIconSrc('charge-points', 'flash').includes('colored')
+      }">
+      <img
+        [src]="getIconSrc('charge-points', 'flash')"
+        alt="Charge points icon link" />
+    </button>
+    <a
+      pTooltip="Stations"
+      class="view__link"
+      routerLink="/stations"
+      routerLinkActive="active">
+      <img
+        [src]="getIconSrc('stations', 'marker-pin-circle')"
+        alt="stations icon link" />
+    </a>
+  </div>
+</div>
+<div class="view__bottom-links">
+  <div class="view__bottom-icons">
+    <a
+      pTooltip="Notifications"
+      class="view__link"
+      routerLink="/notifications"
+      routerLinkActive="active">
+      <img
+        [src]="getIconSrc('notifications', 'bell')"
+        alt="notifications icon link" />
+    </a>
+    <a
+      pTooltip="Accounts management"
+      class="view__link"
+      routerLink="/accounts-management"
+      routerLinkActive="active">
+      <img
+        [src]="getIconSrc('accounts-management', '2users')"
+        alt="accounts management icon link" />
+    </a>
+    <a
+      pTooltip="Settings & Configurations"
+      class="view__link"
+      routerLink="/settings"
+      routerLinkActive="active">
+      <img
+        [src]="getIconSrc('settings', 'settings-gear')"
+        alt="settings icon link" />
+    </a>
+  </div>
+
+  <a routerLink="/profile" class="view__profile bg-primary-900">
+    <img src="../../../../assets/images/logo.svg" alt="profile icon" />
+  </a>
+</div>
+
+<p-sidebar
+  appendTo="body"
+  [position]="sidebarPosition"
+  [(visible)]="chPointsSideBarVisibility"
+  styleClass="charge-points-nav min-w-[33.2rem] py-2 px-2.5">
+  <ng-template pTemplate="header">
+    <h4 class="text-primary-700 font-semibold text-2">Charge Points</h4>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <h5 class="mb-1.6 button-typo text-gray-900">Assets</h5>
+    <ul class="[&>li:not(:last-child)]:mb-1.6 [&>li:last-child]:mb-3.2">
+      <li class="paragraph-typo text-gray-800">
+        <a
+          class="hover:underline"
+          (click)="chPointsSideBarVisibility = false"
+          routerLink="/charge-points"
+          >Charge points</a
+        >
+      </li>
+      <li class="paragraph-typo text-gray-800">
+        <a
+          class="hover:underline"
+          (click)="chPointsSideBarVisibility = false"
+          routerLink="/connectors"
+          >Connectors</a
+        >
+      </li>
+    </ul>
+    <h5 class="mb-1.6 button-typo text-gray-900">Activity</h5>
+    <ul class="[&>li:not(:last-child)]:mb-1.6">
+      <li class="paragraph-typo text-gray-800">
+        <a
+          class="hover:underline"
+          (click)="chPointsSideBarVisibility = false"
+          routerLink="/"
+          >Authorizations</a
+        >
+      </li>
+      <li class="paragraph-typo text-gray-800">
+        <a
+          class="hover:underline"
+          (click)="chPointsSideBarVisibility = false"
+          routerLink="/"
+          >Reservations</a
+        >
+      </li>
+      <li class="paragraph-typo text-gray-800">
+        <a
+          class="hover:underline"
+          (click)="chPointsSideBarVisibility = false"
+          routerLink="/charging-sessions"
+          >Charging Sessions</a
+        >
+      </li>
+    </ul>
+  </ng-template>
+</p-sidebar>

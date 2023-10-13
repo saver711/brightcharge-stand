@@ -1,0 +1,88 @@
+.p-dialog {
+  border-radius: $borderRadius;
+  box-shadow: $overlayContainerShadow;
+  border: $overlayContentBorder;
+
+  .p-dialog-header {
+    border-bottom: $dialogHeaderBorder;
+    background: $dialogHeaderBg;
+    color: $gray-900;
+    // padding: $dialogHeaderPadding;
+    padding: 1.8rem 3.2rem;
+    border-top-right-radius: $borderRadius;
+    border-top-left-radius: $borderRadius;
+
+    .p-dialog-title {
+      //   font-weight: $dialogHeaderFontWeight;
+      //   font-size: $dialogHeaderFontSize;
+      font-weight: bold;
+      font-size: 2rem;
+      color: $gray-900;
+    }
+
+    .p-dialog-header-icon {
+      @include action-icon();
+      margin-right: $inlineSpacing;
+      color: $gray-900;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .p-dialog-content {
+    background: $overlayContentBg;
+    color: $panelContentTextColor;
+    // padding: $dialogContentPadding;
+    padding: 3.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+
+    &:last-of-type {
+      border-bottom-right-radius: $borderRadius;
+      border-bottom-left-radius: $borderRadius;
+    }
+  }
+
+  .p-dialog-footer {
+    border-top: none;
+    background: $overlayContentBg;
+    color: $panelFooterTextColor;
+    // padding: $dialogFooterPadding;
+    padding: 1.6rem 3.2rem;
+    // text-align: right;
+    border-bottom-right-radius: $borderRadius;
+    border-bottom-left-radius: $borderRadius;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.6rem;
+
+    // We may need to move this from here and adjust each case separately
+    [dir='rtl'] & {
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+    }
+
+    // button {
+    //   margin: 0 $inlineSpacing 0 0;
+    //   width: auto;
+    // }
+  }
+
+  &.p-confirm-dialog {
+    .p-confirm-dialog-icon {
+      font-size: $primeIconFontSize * 2;
+
+      &.p-icon {
+        width: $primeIconFontSize * 2;
+        height: $primeIconFontSize * 2;
+      }
+    }
+
+    .p-confirm-dialog-message {
+      margin-left: $inlineSpacing * 2;
+    }
+  }
+}

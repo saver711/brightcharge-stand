@@ -1,0 +1,66 @@
+<div class="public">
+  <div class="public__design">
+    <div class="public__design--parent">
+      <app-anonymous-user-section
+        class="left-side"></app-anonymous-user-section>
+    </div>
+    <div class="bottom__image">
+      <img
+        src="assets/images/Illustration.svg"
+        class="Illustration"
+        alt="Illustration" />
+    </div>
+  </div>
+
+  <div class="public__actions">
+    <!-- reusable not logged in nav -->
+    <div
+      class="public__actions__topLinks"
+      [ngClass]="{
+        inverted: !showBackToLoginLing
+      }">
+      <a
+        *ngIf="showBackToLoginLing"
+        class="public__actions__back-to-login w-500 c-gray-800"
+        routerLink="/login"
+        ><i class="pi pi-angle-left"></i
+        >{{ 'public-view.back-to-login' | translate }}</a
+      >
+      <div class="not-logged-in-nav">
+        <div *ngIf="selectedLanguage" class="card flex justify-content-center">
+          <p-dropdown
+            (onChange)="changeLanguage($event)"
+            [options]="items"
+            [(ngModel)]="selectedLanguage"
+            styleClass="dropdown-clean">
+            <ng-template pTemplate="selectedItem">
+              <div class="dropdown-item" *ngIf="true">
+                <span [class]="selectedLanguage.icon"></span>
+                <p>{{ selectedLanguage.localization | translate }}</p>
+              </div>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div class="dropdown-item">
+                <span [class]="item.icon"></span>
+                <p>{{ item.localization | translate }}</p>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+    <!-- reusable not logged in footer -->
+    <div class="public__actions__Links">
+      <a href="#" class="Link"> Terms & Conditions </a>
+      <div class="separator"></div>
+      <a href="#" class="Link"> Privacy Policy </a>
+      <div class="separator"></div>
+      <a href="" class="Link"> Cookies Policy </a>
+    </div>
+  </div>
+</div>
+<p-toast position="bottom-right"></p-toast>

@@ -1,0 +1,116 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="actions-header">
+    <h1 class="actions-header__title">
+      <a routerLink="/stations">
+        <i class="pi pi-angle-left actions-header__title_icon"></i>
+      </a>
+      Add New Station
+    </h1>
+    <div class="actions-header__btns">
+      <p-button
+        icon="pi pi-sync"
+        label="Clear Form"
+        styleClass="p-button-transparent"
+        (onClick)="resetForm()"></p-button>
+
+      <p-button
+        type="submit"
+        icon="pi pi-plus-circle"
+        label="Create"></p-button>
+    </div>
+  </div>
+
+  <!-- TABS -->
+
+  <div class="card">
+    <p-tabView styleClass="tabview-custom" [(activeIndex)]="activeIndex">
+      <!-- GENERAL -->
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <i class="pi pi-list"></i>
+          <span
+            [ngClass]="{
+              'has-error': generalHasError()
+            }"
+            >General Information</span
+          >
+          <i *ngIf="generalHasError()" class="pi pi-exclamation-triangle"></i>
+        </ng-template>
+        <bs-create-station-general></bs-create-station-general>
+      </p-tabPanel>
+
+      <!-- AMENITIES -->
+      <p-tabPanel header="Amenities">
+        <ng-template pTemplate="header">
+          <i class="pi pi-share-alt"></i>
+          <span>Amenities</span>
+        </ng-template>
+        <bs-create-station-amenities></bs-create-station-amenities>
+      </p-tabPanel>
+
+      <!-- WORKING HOURS -->
+      <p-tabPanel header="Working Hours">
+        <ng-template pTemplate="header">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none">
+            <g clip-path="url(#clip0_3337_19416)">
+              <path
+                d="M9.99935 4.99935V9.99935L13.3327 11.666M18.3327 9.99935C18.3327 14.6017 14.6017 18.3327 9.99935 18.3327C5.39698 18.3327 1.66602 14.6017 1.66602 9.99935C1.66602 5.39698 5.39698 1.66602 9.99935 1.66602C14.6017 1.66602 18.3327 5.39698 18.3327 9.99935Z"
+                stroke="inherit"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+            </g>
+            <defs>
+              <clipPath id="clip0_3337_19416">
+                <rect width="20" height="20" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+
+          <span>Working Hours</span>
+        </ng-template>
+        <bs-create-station-working-hours
+          [AddStationForm]="createStationForm"
+          [resetAlwaysOpen]="resetAlwaysOpen"
+          (alwaysOpen)="initializeTheForm()"></bs-create-station-working-hours>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+
+  <!-- on create req loading -->
+  <p-blockUI [blocked]="isCreatedLoading">
+    <div class="processing-message items-center px-1.5 rounded-lg bg-white">
+      <img
+        class="ellipse-2 spin"
+        src="assets/images/processing-spinner.svg"
+        alt="Processing Message" />
+      <p class="message text-[16px] font-medium">
+        Creating station, please wait ...
+      </p>
+    </div>
+  </p-blockUI>
+
+  <!-- toast after creation -->
+  <bs-confirmation-toast
+    (confirmEvent)="viewDetails()"
+    [life]="3000"
+    [toastWidth]="{ '2000px': { width: '42rem' } }">
+    <div class="grid p-fluid" action-btns>
+      <p-button
+        type="button"
+        (click)="viewDetails()"
+        label="View Details"
+        class="p-button-success"></p-button>
+      <p-button
+        type="button"
+        (click)="onReject()"
+        label="Close"
+        class="p-button-secondary"></p-button>
+    </div>
+  </bs-confirmation-toast>
+</form>

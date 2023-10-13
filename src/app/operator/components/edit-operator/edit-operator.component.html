@@ -1,0 +1,110 @@
+<div *ngIf="operator">
+  <form (ngSubmit)="onSubmit()">
+    <div class="actions-header">
+      <h1 class="actions-header__title">
+        <a routerLink="/operators">
+          <i class="pi pi-angle-left actions-header__title_icon"></i>
+        </a>
+        Edit Operator
+      </h1>
+      <div class="actions-header__btns">
+        <p-button
+          icon="pi pi-sync"
+          label="Reset Form"
+          styleClass="p-button-transparent"
+          (onClick)="resetForm()"></p-button>
+
+        <p-button
+          [disabled]="!editOperatorForm.dirty"
+          icon="pi pi-save"
+          label="Save Changes"
+          type="submit"></p-button>
+      </div>
+    </div>
+
+    <!-- TABS -->
+
+    <div class="card">
+      <p-tabView styleClass="tabview-custom">
+        <!-- GENERAL -->
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-list"></i>
+            <span
+              [ngClass]="{
+                'has-error': generalHasError()
+              }"
+              >General Information</span
+            >
+            <i *ngIf="generalHasError()" class="pi pi-exclamation-triangle"></i>
+          </ng-template>
+          <bs-edit-operator-general
+            [formSubmitted]="formSubmitted"
+            [editOperatorForm]="editOperatorForm"></bs-edit-operator-general>
+        </p-tabPanel>
+
+        <!-- LEGAL -->
+        <p-tabPanel header="Legal Documents">
+          <ng-template pTemplate="header">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none">
+              <path
+                d="M11.667 1.89v3.443c0 .466 0 .7.09.878.08.157.208.284.365.364.178.091.411.091.878.091h3.442m-4.775 7.5h-5m6.666-3.333H6.667m10-2.51v6.01c0 1.4 0 2.1-.273 2.635a2.5 2.5 0 0 1-1.092 1.092c-.535.273-1.235.273-2.635.273H7.333c-1.4 0-2.1 0-2.635-.273a2.5 2.5 0 0 1-1.092-1.092c-.273-.535-.273-1.235-.273-2.635V5.666c0-1.4 0-2.1.273-2.635a2.5 2.5 0 0 1 1.092-1.093c.535-.272 1.235-.272 2.635-.272h2.677c.611 0 .917 0 1.205.07a2.5 2.5 0 0 1 .722.298c.253.155.469.371.901.804l2.657 2.656c.432.433.649.649.803.901.137.224.238.468.3.723.069.288.069.593.069 1.205z"
+                stroke="inherit"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <span
+              [ngClass]="{
+                'has-error': legalHasError()
+              }"
+              >Legal Documents</span
+            >
+            <i *ngIf="legalHasError()" class="pi pi-exclamation-triangle"></i>
+          </ng-template>
+          <bs-edit-operator-legal
+            [formSubmitted]="formSubmitted"
+            [editOperatorForm]="editOperatorForm"></bs-edit-operator-legal>
+        </p-tabPanel>
+
+        <!-- SUBSCRIPTION -->
+        <p-tabPanel header="Subscription Plan">
+          <ng-template pTemplate="header">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none">
+              <path
+                d="M10 13.75a4.167 4.167 0 1 0 8.333 0 4.167 4.167 0 0 0-8.333 0zm0 0c0-.938.31-1.803.833-2.5v-7.5m-.833 10c0 .688.167 1.337.462 1.91-.702.592-2.324 1.007-4.212 1.007-2.531 0-4.583-.746-4.583-1.666V3.75m9.166 0c0 .92-2.052 1.666-4.583 1.666s-4.583-.746-4.583-1.666m9.166 0c0-.92-2.052-1.667-4.583-1.667s-4.583.746-4.583 1.667m0 7.5c0 .92 2.052 1.666 4.583 1.666 1.824 0 3.4-.387 4.137-.948m.446-4.468c0 .92-2.052 1.666-4.583 1.666s-4.583-.746-4.583-1.666"
+                stroke="inherit"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <span>Subscription Plan</span>
+          </ng-template>
+          <bs-new-operator-subscription></bs-new-operator-subscription>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </form>
+</div>
+
+<!-- on edit req loading -->
+<bs-loading-overlay
+  [blocked]="isEditedLoading"
+  message="Editing operator, please wait ..."></bs-loading-overlay>
+
+<!-- toast after edit -->
+<bs-confirmation-toast
+  [life]="3000"
+  [toastWidth]="{ '2000px': { width: '42rem' } }">
+</bs-confirmation-toast>
+<p *ngIf="!operator">Couldn't load this operator</p>

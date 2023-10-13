@@ -1,0 +1,550 @@
+<p-dialog
+  [maximizable]="true"
+  (onShow)="onShow()"
+  class="search-dialog"
+  [dismissableMask]="true"
+  header="Advanced Search"
+  [(visible)]="visibility"
+  [position]="position"
+  [modal]="true"
+  (onHide)="close()"
+  [draggable]="false">
+  <!-- fetching user -->
+  <div *ngIf="isFetchingUsers"><h1>Loading</h1></div>
+  <!-- Error fetching user -->
+  <div *ngIf="fetchingUsersError">{{ fetchingUsersError }}</div>
+  <form
+    [formGroup]="searchForm"
+    class="form-block search-form"
+    (ngSubmit)="onSubmit()"
+    *ngIf="!fetchingUsersError && !isFetchingUsers">
+    <div class="search-form__block">
+      <h5 class="form-block__title">General Information</h5>
+      <div class="inputs-grid grid-of-3">
+        <div class="input-container">
+          <label for="name">Name</label>
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('name')"
+              [targetInput]="name"></i>
+            <input
+              #name
+              id="name"
+              pInputText
+              placeholder="Sha7en"
+              type="text"
+              formControlName="name" />
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="email">E-mail Address</label>
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('email')"
+              [targetInput]="email"></i>
+            <input
+              #email
+              id="email"
+              pInputText
+              placeholder="hello@domian.com"
+              type="email"
+              formControlName="email"
+              aria-describedby="email-help" />
+          </div>
+          <!-- <p
+            class="input-error-helper"
+            *ngIf="searchForm.get('email')?.invalid && shouldShowEmailError()"
+            id="email-help"
+          >
+            Enter valid email
+          </p> -->
+        </div>
+        <div class="input-container">
+          <label for="phoneNumber">Phone Number</label>
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('phoneNumber')"
+              [targetInput]="phoneNumber"></i>
+            <input
+              #phoneNumber
+              id="phoneNumber"
+              pInputText
+              placeholder="01115556275"
+              type="text"
+              formControlName="phoneNumber" />
+          </div>
+        </div>
+      </div>
+
+      <div class="inputs-grid grid-of-2-2nd-is-twice">
+        <div class="input-container">
+          <label for="landline">Landline Number</label>
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('landlineNumber')"
+              [targetInput]="landlineNumber"></i>
+            <input
+              #landlineNumber
+              id="landlineNumber"
+              pInputText
+              placeholder="2033900216"
+              type="text"
+              formControlName="landlineNumber" />
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="address">Address</label>
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('address')"
+              [targetInput]="address"></i>
+            <input
+              #address
+              id="address"
+              pInputText
+              placeholder="193H Pyramids Garden, Giza - Egypt"
+              type="text"
+              formControlName="address" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p-divider></p-divider>
+    <!--
+      LEGAL
+     -->
+    <div class="search-form__block">
+      <h5 class="form-block__title">Legal</h5>
+      <h6 class="form-block__subtitle">Commercial Register</h6>
+      <div class="inputs-grid grid-of-3">
+        <div class="input-container">
+          <label for="commercial_register_id">Commercial register id</label>
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('commercial_register_id')"
+              [targetInput]="commercial_register_id"></i>
+
+            <input
+              #commercial_register_id
+              id="commercial_register_id"
+              pInputText
+              placeholder="985032"
+              type="text"
+              formControlName="commercial_register_id" />
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="commercial_issuance_office"
+            >Commercial issuance office</label
+          >
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('commercial_issuance_office')"
+              [targetInput]="commercial_issuance_office"></i>
+            <input
+              #commercial_issuance_office
+              id="commercial_issuance_office"
+              pInputText
+              placeholder="Giza"
+              type="text"
+              formControlName="commercial_issuance_office" />
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="commercial_issuance_date">Commercial issuance date</label>
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('commercial_issuance_date')"
+              [targetInput]="commercial_issuance_date"></i>
+            <p-calendar
+              #commercial_issuance_date
+              placeholder="Select Date"
+              formControlName="commercial_issuance_date"
+              [showIcon]="true"
+              [touchUI]="isTouchDevice()"
+              dateFormat="dd/mm/yy"
+              inputId="commercial_issuance_date"></p-calendar>
+          </div>
+        </div>
+      </div>
+
+      <h6 class="form-block__subtitle">Tax Register</h6>
+      <div class="inputs-grid grid-of-3">
+        <div class="input-container">
+          <label for="tax_register_id">Tax register id</label>
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('tax_register_id')"
+              [targetInput]="tax_register_id"></i>
+            <input
+              #tax_register_id
+              id="tax_register_id"
+              pInputText
+              placeholder="985032"
+              type="text"
+              formControlName="tax_register_id" />
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="tax_issuance_office">Tax issuance office</label>
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('tax_issuance_office')"
+              [targetInput]="tax_issuance_office"></i>
+            <input
+              #tax_issuance_office
+              id="tax_issuance_office"
+              pInputText
+              placeholder="Giza"
+              type="text"
+              formControlName="tax_issuance_office" />
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="tax_issuance_date">Tax issuance date</label>
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('tax_issuance_date')"
+              [targetInput]="tax_issuance_date"></i>
+            <p-calendar
+              #tax_issuance_date
+              placeholder="Select Date"
+              formControlName="tax_issuance_date"
+              [showIcon]="true"
+              [touchUI]="isTouchDevice()"
+              dateFormat="dd/mm/yy"
+              inputId="tax_issuance_date"></p-calendar>
+          </div>
+        </div>
+      </div>
+
+      <h6 class="form-block__subtitle">Electricity retail license</h6>
+      <div class="inputs-grid grid-of-3">
+        <div class="input-container">
+          <label for="electricity_register_id">Electricity register id</label>
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('electricity_register_id')"
+              [targetInput]="electricity_register_id"></i>
+            <input
+              #electricity_register_id
+              id="electricity_register_id"
+              pInputText
+              placeholder="985032"
+              type="text"
+              formControlName="electricity_register_id" />
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="electricity_issuance_office"
+            >Electricity issuance office</label
+          >
+          <div class="input-with-icons one-icon-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('electricity_issuance_office')"
+              [targetInput]="electricity_issuance_office"></i>
+            <input
+              #electricity_issuance_office
+              id="electricity_issuance_office"
+              pInputText
+              placeholder="Giza"
+              type="text"
+              formControlName="electricity_issuance_office" />
+          </div>
+        </div>
+        <div class="input-container">
+          <label for="electricity_issuance_date"
+            >Electricity issuance date</label
+          >
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('electricity_issuance_date')"
+              [targetInput]="electricity_issuance_date"></i>
+            <p-calendar
+              #electricity_issuance_date
+              placeholder="Select Date"
+              formControlName="electricity_issuance_date"
+              [showIcon]="true"
+              [touchUI]="isTouchDevice()"
+              dateFormat="dd/mm/yy"
+              inputId="electricity_issuance_date"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p-divider></p-divider>
+    <!--
+      Subscription
+    -->
+    <div class="search-form__block">
+      <h5 class="form-block__title">Subscription</h5>
+      <div class="input-container">
+        <label for="subscription">Subscription Plan</label>
+        <div class="subscription-plan-select">
+          <p-dropdown
+            optionValue="id"
+            optionLabel="name"
+            [filter]="true"
+            filterBy="name"
+            [showClear]="true"
+            inputId="subscription"
+            formControlName="subscription"
+            [options]="subscriptionPlans"
+            optionLabel="name"
+            [autoDisplayFirst]="false"
+            placeholder="Select subscription plan"
+            filterPlaceholder="Search"
+            [overlayOptions]="getDropdownOverlayOptions()"></p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <p-divider></p-divider>
+
+    <!--
+        AUDIT
+       -->
+    <div class="search-form__block">
+      <h5 class="form-block__title">Audit</h5>
+      <div class="inputs-grid grid-of-3">
+        <!-- CREATED BY -->
+        <div class="input-container">
+          <label for="createdBy">Created By</label>
+          <p-multiSelect
+            [filter]="true"
+            [showClear]="true"
+            inputId="createdBy"
+            [options]="users"
+            formControlName="createdBy"
+            filterBy="name,email"
+            defaultLabel="Select User"
+            [overlayOptions]="getMultiselectOverlayOptions()">
+            <ng-template let-value pTemplate="selectedItems">
+              <!-- one user is selected -->
+              <span *ngIf="searchForm.get('createdBy')?.value?.length === 1">
+                {{ searchForm.get('createdBy')?.value?.[0]?.username }}
+              </span>
+
+              <!-- more than one user -->
+              <span
+                *ngIf="
+                  !!searchForm.get('createdBy')?.value?.length &&
+                  searchForm.get('createdBy')?.value?.length !== 1
+                ">
+                {{ searchForm.get('createdBy')?.value?.length }} Users selected
+              </span>
+
+              <!-- No selections -->
+              <span
+                *ngIf="
+                  !searchForm.get('createdBy')?.value ||
+                  searchForm.get('createdBy')?.value?.length === 0
+                ">
+                Select User
+              </span>
+            </ng-template>
+
+            <ng-template let-user pTemplate="item">
+              <div>
+                <div class="select-main-value">{{ user.username }}</div>
+                <div class="select-secondary-value">{{ user.email }}</div>
+              </div>
+            </ng-template>
+          </p-multiSelect>
+        </div>
+        <!-- Created At -->
+        <div class="input-container">
+          <label for="creationDate">Created At</label>
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('creationDate')"
+              [targetInput]="creationDate"></i>
+            <p-calendar
+              #creationDate
+              placeholder="Select Date"
+              formControlName="creationDate"
+              [showIcon]="true"
+              [touchUI]="isTouchDevice()"
+              dateFormat="dd/mm/yy"
+              inputId="creationDate"></p-calendar>
+          </div>
+        </div>
+
+        <!-- Created Till -->
+        <div class="input-container">
+          <label for="created_till_date">Created Till</label>
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('created_till_date')"
+              [targetInput]="created_till_date"></i>
+            <p-calendar
+              #created_till_date
+              placeholder="Select Date"
+              formControlName="created_till_date"
+              [showIcon]="true"
+              [touchUI]="isTouchDevice()"
+              dateFormat="dd/mm/yy"
+              inputId="created_till_date"
+              bsInputBetterValidation
+              [helperElement]="created_till_date_help"></p-calendar>
+            <!-- [formSubmitted]="formSubmitted" -->
+          </div>
+          <p
+            class="input-error-helper"
+            id="created_till_date-help"
+            #created_till_date_help>
+            Date should be after Created At date
+          </p>
+        </div>
+      </div>
+      <div class="inputs-grid grid-of-3">
+        <!-- UPDATED BY -->
+        <div class="input-container">
+          <label for="lastModifiedBy">Updated By</label>
+          <p-multiSelect
+            [filter]="true"
+            [showClear]="true"
+            inputId="lastModifiedBy"
+            [options]="users"
+            formControlName="lastModifiedBy"
+            filterBy="username,email"
+            defaultLabel="Select User"
+            [overlayOptions]="getMultiselectOverlayOptions()">
+            <ng-template let-value pTemplate="selectedItems">
+              <!-- one user is selected -->
+              <span
+                *ngIf="searchForm.get('lastModifiedBy')?.value?.length === 1">
+                {{ searchForm.get('lastModifiedBy')?.value?.[0]?.username }}
+              </span>
+
+              <!-- more than one user -->
+              <span
+                *ngIf="
+                  !!searchForm.get('lastModifiedBy')?.value?.length &&
+                  searchForm.get('lastModifiedBy')?.value?.length !== 1
+                ">
+                {{ searchForm.get('lastModifiedBy')?.value?.length }} Users
+                selected
+              </span>
+
+              <!-- No selections -->
+              <span
+                *ngIf="
+                  !searchForm.get('lastModifiedBy')?.value ||
+                  searchForm.get('lastModifiedBy')?.value?.length === 0
+                ">
+                Select User
+              </span>
+            </ng-template>
+
+            <ng-template let-user pTemplate="item">
+              <div>
+                <div class="select-main-value">{{ user.username }}</div>
+                <div class="select-secondary-value">{{ user.email }}</div>
+              </div>
+            </ng-template>
+          </p-multiSelect>
+        </div>
+
+        <!-- Update At -->
+        <div class="input-container">
+          <label for="lastModifiedDate">Update At</label>
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('lastModifiedDate')"
+              [targetInput]="lastModifiedDate"></i>
+            <p-calendar
+              #lastModifiedDate
+              placeholder="Select Date"
+              formControlName="lastModifiedDate"
+              [showIcon]="true"
+              [touchUI]="isTouchDevice()"
+              dateFormat="dd/mm/yy"
+              inputId="lastModifiedDate"></p-calendar>
+          </div>
+        </div>
+
+        <!-- Update Till -->
+        <div class="input-container">
+          <label for="updated_till_date">Update Till</label>
+          <div class="input-with-icons two-icons-start-end">
+            <i
+              class="pi icon end pi-times"
+              bsClearInput
+              [targetControl]="searchForm.get('updated_till_date')"
+              [targetInput]="updated_till_date"></i>
+            <p-calendar
+              #updated_till_date
+              placeholder="Select Date"
+              formControlName="updated_till_date"
+              [showIcon]="true"
+              [touchUI]="isTouchDevice()"
+              dateFormat="dd/mm/yy"
+              inputId="updated_till_date"
+              bsInputBetterValidation
+              [helperElement]="updated_till_date_help"></p-calendar>
+          </div>
+          <p
+            class="input-error-helper"
+            id="updated_till_date-help"
+            #updated_till_date_help>
+            Date should be after Updated At date
+          </p>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- FOOTER -->
+  <ng-template pTemplate="footer" class="footer">
+    <!-- SUBMIT -->
+    <p-button
+      [disabled]="searchForm.invalid && !formSubmitted"
+      styleClass=""
+      (click)="onSubmit()"
+      label="Apply Filters"
+      type="button"></p-button>
+    <!-- RESET -->
+    <p-button
+      [disabled]="searchForm.invalid"
+      styleClass=""
+      label="Reset Filters"
+      type="button"
+      (click)="onReset()"></p-button>
+  </ng-template>
+</p-dialog>

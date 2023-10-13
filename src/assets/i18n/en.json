@@ -1,0 +1,78 @@
+{
+  "public-view": {
+    "back-to-login": "Back to Login",
+    "left-side": {
+      "head-text": "Fast, Efficient and Productive",
+      "head-text2": "Start managing your charge points the right way.",
+      "bullts-1-head": "Control charge points and connectors",
+      "bullts-1-text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry, lorem Ipsum has been the industry's standard dummy text.",
+      "bullts-2-head": "Monitor charging sessions",
+      "bullts-2-text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry, lorem Ipsum has been the industry's standard dummy text.",
+      "bullts-3-head": "Monetize through statistics and live Data",
+      "bullts-3-text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry, lorem Ipsum has been the industry's standard dummy text.",
+      "bullts-4-head": " Reach more consumers",
+      "bullts-4-text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry, lorem Ipsum has been the industry's standard dummy text."
+    }
+  },
+  "login-form": {
+    "head": "Welcome Back!",
+    "description": "Login with your account credentials below.",
+    "username-lbl": "Username",
+    "username-placeholder": "Enter your username",
+    "username-validation-msg": "Enter your username",
+    "password-lbl": "Password",
+    "password-placeholder": "Enter your password",
+    "password-validation-msg": "Enter your password",
+    "remember-me": "Keep me logged in",
+    "forget-password": "Forgot Password?",
+    "login-btn": "login"
+  },
+  "forgot-form": {
+    "head": "Forgot your password?",
+    "description": "Type in your username and we will send you a recovery password e-mail to your e-mail address with instructions for how to reset your password..",
+    "username-lbl": "Username",
+    "username-placeholder": "Enter your username",
+    "username-validation-msg": "Enter your username",
+    "cta": "E-mail Me Recovery Link",
+    "messages": {
+      "sending": "Sending password recovery e-mail, please wait ...",
+      "success": "An e-mail has been sent to your e-mail address with instructions for resetting your password.",
+      "error": "Account doesn’t exist or might be deactivated"
+    }
+  },
+  "reset-form": {
+    "head": "Reset your password",
+    "description": "Type in the new password you want to set for your account.",
+    "new-password-lbl": "New Password",
+    "new-password-placeholder": "Enter your new password",
+
+    "new-password-pattern-label": "For a stronger password",
+    "new-password-pattern-upper": "Uppercase Letters",
+    "new-password-pattern-lower": "Lowercase Letters",
+    "new-password-pattern-special": "Special Characters",
+    "new-password-pattern-nums": "Numbers",
+    "new-password-pattern-length": "Minimum 8 characters",
+
+    "new-password-required-validation-msg": "Enter your password",
+    "new-password-length-validation-msg": "Password must be between 8 and 20 characters.",
+    "new-password-pattern-validation-msg": "Password must have uppercase, lowercase, special characters, and numbers.",
+
+    "confirm-password-lbl": "Confirm New Password",
+    "confirm-password-placeholder": "Confirm your new password",
+    "confirm-password-validation-msg": "Confirm password must match new password.",
+
+    "cta": "Change password",
+
+    "messages": {
+      "processing": "Updating your password, please wait ...",
+      "error-link-expired": "Password recovery link has expired, please recover your password again for a new link.",
+      "success-head": "Password Changed Successfully",
+      "success-text": "Your new password is now set for your account, you can try and login again from",
+      "success-text-link": "Login Page"
+    }
+  },
+  "localization": {
+    "english": "English",
+    "arabic": "Arabic"
+  }
+}

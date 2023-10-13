@@ -1,0 +1,10 @@
+.p-terminal {
+  background: $panelContentBg;
+  color: $panelContentTextColor;
+  border: $panelContentBorder;
+  padding: $panelContentPadding;
+
+  .p-terminal-input {
+    font-size: $fontSize;
+  }
+}

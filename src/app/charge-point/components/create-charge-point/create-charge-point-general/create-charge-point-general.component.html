@@ -1,0 +1,196 @@
+<h4 class="new-operator-tab-title">General Information</h4>
+<form (ngSubmit)="submitForm()" [formGroup]="generalForm">
+  <div class="inputs-grid grid-of-4">
+    <!-- NAME -->
+    <div class="input-container">
+      <label for="name">Name<span class="required-star">*</span></label>
+      <div class="input-with-icons one-icon-end">
+        <i
+          class="pi icon end pi-times"
+          bsClearInput
+          [targetControl]="generalForm.get('name')"
+          [targetInput]="name"></i>
+        <input
+          id="name"
+          pInputText
+          placeholder="Ikea CFC"
+          type="text"
+          formControlName="name"
+          aria-describedby="name-help"
+          #name
+          bsInputBetterValidation
+          [formSubmitted]="formSubmitted"
+          [helperElement]="name_help" />
+      </div>
+      <p class="input-error-helper" id="name-help" #name_help>
+        Enter charge point name
+      </p>
+    </div>
+    <div class="grid grid-cols-2 gap-10">
+      <!------------ MINIMUM POWER ------------>
+      <div class="input-container">
+        <label for="minPower"
+          >Minimum Power<span class="required-star">*</span></label
+        >
+        <div class="input-with-icons one-icon-end-group">
+          <i
+            class="pi icon end pi-times"
+            bsClearInput
+            [targetControl]="generalForm.get('minPower')"
+            [targetInput]="minPower"></i>
+          <div class="p-inputgroup">
+            <input
+              id="minPower"
+              pInputNumber
+              formControlName="minPower"
+              aria-describedby="minPower-help"
+              #minPower
+              bsInputBetterValidation
+              [formSubmitted]="formSubmitted"
+              [helperElement]="minPower_help"
+              type="number"
+              pInputText
+              placeholder="Ex. 7" />
+            <span class="p-inputgroup-addon power-addon">kWh</span>
+          </div>
+          <p class="input-error-helper" id="minPower-help" #minPower_help>
+            Enter minimum power
+          </p>
+        </div>
+      </div>
+      <!------------ MAMIMUM POWER ------------>
+      <div class="input-container">
+        <label for="maxPower"
+          >Maximum Power<span class="required-star">*</span></label
+        >
+        <div class="input-with-icons one-icon-end-group">
+          <i
+            class="pi icon end pi-times"
+            bsClearInput
+            [targetControl]="generalForm.get('maxPower')"
+            [targetInput]="maxPower"></i>
+          <div class="p-inputgroup">
+            <input
+              id="maxPower"
+              pInputNumber
+              formControlName="maxPower"
+              aria-describedby="maxPower-help"
+              #maxPower
+              bsInputBetterValidation
+              [formSubmitted]="formSubmitted"
+              [helperElement]="maxPower_help"
+              type="number"
+              pInputText
+              placeholder="Ex. 22" />
+            <span class="p-inputgroup-addon power-addon">kWh</span>
+          </div>
+          <p class="input-error-helper" id="maxPower-help" #maxPower_help>
+            Enter maximum power
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- ACCESSIBILITY -->
+    <div class="input-container">
+      <label for="access"
+        >Accessibility <span class="required-star">*</span></label
+      >
+      <p-dropdown
+        id="accessibility"
+        inputId="access"
+        placeholder="Select accessibility"
+        [options]="accessibilityOptions"
+        [showClear]="true"
+        [required]="true"
+        optionLabel="label"
+        optionValue="value"
+        formControlName="access"
+        bsInputBetterValidation
+        [formSubmitted]="formSubmitted"
+        [helperElement]="accessibility_help" />
+      <p class="input-error-helper" id="accessibility-help" #accessibility_help>
+        Select accessibility of charge point
+      </p>
+    </div>
+  </div>
+
+  <div class="inputs-grid grid-of-4">
+    <!-- BRAND -->
+    <div class="input-container">
+      <label for="name"
+        >Brand <span class="optional-mark"> (optional)</span></label
+      >
+      <p-dropdown
+        [filter]="true"
+        id="brand"
+        [lazy]="true"
+        inputId="brandId"
+        placeholder="Select brand"
+        [options]="brandOptions"
+        [showClear]="true"
+        optionLabel="name"
+        optionValue="id"
+        formControlName="brandId"
+        bsInputBetterValidation
+        [formSubmitted]="formSubmitted"
+        [helperElement]="brand_help"
+        (onChange)="handleBrandChange($event)"
+        (onClear)="handleBrandClear()">
+        <ng-template pTemplate="empty">
+          <bs-loading message="" *ngIf="isFetchingBrands" /> </ng-template
+      ></p-dropdown>
+      <p class="input-error-helper" id="brand-help" #brand_help></p>
+    </div>
+
+    <!------------ MODEL ------------>
+    <div class="input-container">
+      <label for="model"
+        >Model <span class="optional-mark"> (optional)</span></label
+      >
+      <p-dropdown
+        [filter]="true"
+        id="model"
+        inputId="modelId"
+        [lazy]="true"
+        placeholder="Select model"
+        [options]="modelOptions"
+        [showClear]="true"
+        optionLabel="name"
+        optionValue="id"
+        formControlName="modelId"
+        bsInputBetterValidation
+        [formSubmitted]="formSubmitted"
+        [helperElement]="model_help">
+        <ng-template pTemplate="empty">
+          <bs-loading message="" *ngIf="isFetchingModels" />
+        </ng-template>
+      </p-dropdown>
+      <p class="input-error-helper" id="model-help" #model_help></p>
+    </div>
+    <!------------ OPERATOR ------------>
+    <div class="input-container">
+      <label for="operator">Operator<span class="required-star">*</span></label>
+      <p-dropdown
+        [filter]="true"
+        id="operator"
+        inputId="cpoId"
+        [lazy]="true"
+        placeholder="Select operator"
+        [options]="operatorOptions"
+        [showClear]="true"
+        optionLabel="name"
+        optionValue="id"
+        formControlName="cpoId"
+        bsInputBetterValidation
+        [formSubmitted]="formSubmitted"
+        [helperElement]="operator_help">
+        <ng-template pTemplate="empty">
+          <bs-loading message="" *ngIf="isFetchingOperators" />
+        </ng-template>
+      </p-dropdown>
+      <p class="input-error-helper" id="model-help" #operator_help>
+        Select operator of the charge point
+      </p>
+    </div>
+  </div>
+</form>

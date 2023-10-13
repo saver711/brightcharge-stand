@@ -1,0 +1,203 @@
+<h4 class="new-operator-tab-title">General Information</h4>
+<div class="inputs-grid grid-of-2">
+  <div class="input-container">
+    <label for="logoImage">Logo<span class="required-star">*</span></label>
+    <p-fileUpload
+      [ngClass]="{
+        'file-drop': true,
+        single: true,
+        'no-upload': true,
+        'has-error': shouldShowLogoError(),
+        'no-data': !isImageSelected
+      }"
+      id="logoImage"
+      name="logoImage"
+      [multiple]="false"
+      accept=".jpg, .jpeg, .png"
+      [maxFileSize]="307200"
+      [chooseLabel]="isImageSelected ? 'Replace Image' : 'Select Image'"
+      chooseStyleClass="p-button-outlined"
+      (onSelect)="onSelect($event)"
+      (onClear)="removeImage()"
+      (onRemove)="removeImage()"
+      [showUploadButton]="false"
+      [showCancelButton]="isImageSelected"
+      cancelLabel="Delete Image"
+      cancelIcon="pi pi-trash"
+      cancelStyleClass="p-button-danger"
+      aria-describedby="logo-help">
+      <ng-template pTemplate="content">
+        <p-messages
+          *ngIf="imageDimensionsError && showDimensionsError"
+          severity="error"
+          class="no-border">
+          <ng-template pTemplate>
+            <i class="pi pi-times-circle"></i>
+            <p>Image dimensions must be 128*128px</p>
+            <i
+              class="pi pi-times message-close"
+              (click)="showDimensionsError = false"></i>
+          </ng-template>
+        </p-messages>
+        <div class="file-drop__content">
+          <div class="file-drop__empty-icon" *ngIf="!isImageSelected">
+            <i class="pi pi-image"></i>
+          </div>
+          <p class="file-drop__info">
+            Image must be
+            <span class="file-drop__info--bold">128x128</span>px and max size
+            <span class="file-drop__info--bold">300KB</span>
+          </p>
+          <p class="file-drop__info">
+            Allowed extensions are
+            <span class="file-drop__info--bold">.jpg or .png</span>
+          </p>
+          <span *ngIf="!isImageSelected" class="file-drop__drag"
+            >Drag and drop image</span
+          >
+          <p *ngIf="!isImageSelected" class="file-drop__or">Or</p>
+        </div>
+      </ng-template>
+    </p-fileUpload>
+
+    <p class="input-error-helper" *ngIf="shouldShowLogoError()" id="logo-help">
+      Upload operator's logo
+    </p>
+  </div>
+</div>
+<div [formGroup]="addOperatorForm">
+  <div formGroupName="general">
+    <div class="inputs-grid grid-of-4">
+      <!-- NAME -->
+      <div class="input-container">
+        <label for="name">Name<span class="required-star">*</span></label>
+        <div class="input-with-icons one-icon-end">
+          <i
+            class="pi icon end pi-times"
+            bsClearInput
+            [targetControl]="addOperatorForm.get('general.name')"
+            [targetInput]="name"></i>
+          <input
+            id="name"
+            pInputText
+            placeholder="Sha7en"
+            type="text"
+            formControlName="name"
+            aria-describedby="name-help"
+            #name
+            bsInputBetterValidation
+            [formSubmitted]="formSubmitted"
+            [helperElement]="name_help" />
+        </div>
+        <p class="input-error-helper" id="name-help" #name_help>
+          Enter operator's name
+        </p>
+      </div>
+      <!-- EMAIL -->
+      <div class="input-container">
+        <label for="email"
+          >E-mail Address <span class="optional-mark"> (optional)</span></label
+        >
+        <div class="input-with-icons one-icon-end">
+          <i
+            class="pi icon end pi-times"
+            bsClearInput
+            [targetControl]="addOperatorForm.get('general.email')"
+            [targetInput]="email"></i>
+          <input
+            #email
+            id="email"
+            pInputText
+            placeholder="hello@domian.com"
+            type="email"
+            formControlName="email"
+            aria-describedby="email-help"
+            bsInputBetterValidation
+            [formSubmitted]="formSubmitted"
+            [helperElement]="email_help" />
+        </div>
+        <p class="input-error-helper" #email_help id="email-help">
+          Enter valid email
+        </p>
+      </div>
+      <!-- PHONE -->
+      <div class="input-container">
+        <label for="phoneNumber"
+          >Phone Number <span class="optional-mark"> (optional)</span></label
+        >
+        <div class="input-with-icons one-icon-end">
+          <i
+            class="pi icon end pi-times"
+            bsClearInput
+            [targetControl]="addOperatorForm.get('general.phoneNumber')"
+            [targetInput]="phoneNumber"></i>
+          <input
+            #phoneNumber
+            id="phoneNumber"
+            pInputText
+            placeholder="01115556275"
+            type="text"
+            bsInputBetterValidation
+            [formSubmitted]="formSubmitted"
+            [helperElement]="phoneNumber_help"
+            formControlName="phoneNumber" />
+        </div>
+        <p class="input-error-helper" #phoneNumber_help id="phone-number-help">
+          Enter valid phone number
+        </p>
+      </div>
+      <!-- LANDLINE -->
+      <div class="input-container">
+        <label for="landlineNumber"
+          >Landline Number <span class="optional-mark"> (optional)</span></label
+        >
+        <div class="input-with-icons one-icon-end">
+          <i
+            class="pi icon end pi-times"
+            bsClearInput
+            [targetControl]="addOperatorForm.get('general.landlineNumber')"
+            [targetInput]="landlineNumber"></i>
+          <input
+            #landlineNumber
+            id="landlineNumber"
+            pInputText
+            placeholder="2033900216"
+            type="text"
+            formControlName="landlineNumber"
+            aria-describedby="landline-number-help"
+            bsInputBetterValidation
+            [formSubmitted]="formSubmitted"
+            [helperElement]="landlineNumber_help" />
+        </div>
+        <p
+          class="input-error-helper"
+          #landlineNumber_help
+          id="landline-number-help">
+          Enter valid landline number
+        </p>
+      </div>
+    </div>
+    <!-- ADDRESS -->
+    <div class="inputs-grid grid-of-2">
+      <div class="input-container">
+        <label for="address"
+          >Address <span class="optional-mark"> (optional)</span></label
+        >
+        <div class="input-with-icons one-icon-end">
+          <i
+            class="pi icon end pi-times"
+            bsClearInput
+            [targetControl]="addOperatorForm.get('general.address')"
+            [targetInput]="address"></i>
+          <input
+            #address
+            id="address"
+            pInputText
+            placeholder="193H Pyramids Garden, Giza - Egypt"
+            type="text"
+            formControlName="address" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

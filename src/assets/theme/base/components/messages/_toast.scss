@@ -1,0 +1,142 @@
+.p-toast {
+  opacity: $toastOpacity;
+
+  .p-toast-message {
+    margin: $toastMargin;
+    box-shadow: $toastShadow;
+    border-radius: $borderRadius;
+
+    .p-toast-message-content {
+      padding: $toastPadding;
+      border-width: 0 0 0 0;
+
+      .p-toast-message-text {
+        margin: $toastMessageTextMargin;
+      }
+
+      .p-toast-message-icon {
+        font-size: $toastIconFontSize;
+      }
+      .p-toast-icon-close {
+        margin-left: auto;
+        width: $toastIconFontSize;
+        height: $toastIconFontSize;
+        border-radius: $actionIconBorderRadius;
+        background: transparent;
+        transition: $actionIconTransition;
+        color: $gray-700 !important;
+        &:hover {
+          background: $white;
+        }
+        &:focus {
+          @include focused();
+        }
+      }
+
+      .p-icon:not(.p-toast-icon-close-icon) {
+        width: $toastIconFontSize;
+        height: $toastIconFontSize;
+      }
+
+      .p-toast-summary {
+        font-weight: $toastTitleFontWeight;
+        font-size: $toastIconFontSize;
+      }
+
+      .p-toast-detail {
+        margin: $toastDetailMargin;
+        color: $black;
+      }
+
+      .grid.p-fluid {
+        display: flex;
+        gap: 0.7rem;
+        padding-top: 2rem;
+        .p-button-success {
+          .p-ripple.p-element.p-button.p-component {
+            background: transparent;
+            color: $black;
+            border: 1px solid $primary-900;
+            border-radius: 0.5rem;
+            height: 4rem;
+          }
+        }
+        .p-button-secondary {
+          .p-ripple.p-element.p-button.p-component {
+            background: transparent;
+            color: $gray-700;
+            border-radius: 0.5rem;
+            height: 4rem;
+          }
+        }
+      }
+    }
+
+    &.p-toast-message-success,
+    &.p-toast-message-error,
+    &.p-toast-message-info,
+    &.p-toast-message-warn {
+      padding: 0.7rem 1.5rem;
+      box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.07);
+      background-color: $white;
+      border-radius: 0 0.4rem 0.4rem 0;
+      .msg-summary {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        padding: 0.6rem 0 1.3rem;
+        i {
+          font-size: $toastIconFontSize;
+        }
+      }
+    }
+
+    &.p-toast-message-info {
+      background: $white;
+      border: $infoMessageBorder;
+      border-width: $messageBorderWidth;
+      color: $infoMessageTextColor;
+
+      .p-toast-message-icon,
+      .p-toast-icon-close {
+        color: $infoMessageIconColor;
+      }
+    }
+
+    &.p-toast-message-success {
+      background: $white;
+      border: $successMessageBorder;
+      border-width: 0 0 0 0.6rem;
+      color: $successMessageTextColor;
+
+      .p-toast-message-icon,
+      .p-toast-icon-close {
+        color: $successMessageIconColor;
+      }
+    }
+
+    &.p-toast-message-warn {
+      background: $white;
+      border: $warningMessageBorder;
+      border-width: $messageBorderWidth;
+      color: $warningMessageTextColor;
+
+      .p-toast-message-icon,
+      .p-toast-icon-close {
+        color: $warningMessageIconColor;
+      }
+    }
+
+    &.p-toast-message-error {
+      background: $white;
+      border: $errorMessageBorder;
+      border-width: $messageBorderWidth;
+      color: $errorMessageTextColor;
+
+      .p-toast-message-icon,
+      .p-toast-icon-close {
+        color: $errorMessageIconColor;
+      }
+    }
+  }
+}

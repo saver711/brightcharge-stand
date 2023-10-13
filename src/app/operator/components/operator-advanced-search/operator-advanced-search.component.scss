@@ -1,0 +1,54 @@
+// STYLES MIGHT BE UNIVERSAL FOR DIALOGS
+:host ::ng-deep {
+  .p-dialog-top .p-dialog,
+  .p-dialog-bottom .p-dialog,
+  .p-dialog-left .p-dialog,
+  .p-dialog-right .p-dialog,
+  .p-dialog-top-left .p-dialog,
+  .p-dialog-top-right .p-dialog,
+  .p-dialog-bottom-left .p-dialog,
+  .p-dialog-bottom-right .p-dialog {
+    margin: 0;
+  }
+}
+// ./ STYLES MIGHT BE UNIVERSAL FOR DIALOGS
+
+.search-dialog {
+  ::ng-deep {
+    .p-dialog-left .p-dialog,
+    .p-dialog-right .p-dialog {
+      // max-width: 94rem;
+      min-height: 100dvh;
+      max-height: 100dvh;
+    }
+  }
+}
+
+.search-form {
+  label {
+    text-transform: capitalize;
+  }
+  &__block {
+    margin: 3.2rem 0 3.1rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+.subscription-plan-select {
+  max-width: 46rem;
+}
+
+// MEDIA
+
+@media only screen and (min-width: 414px) {
+}
+@media only screen and (min-width: 744px) {
+}
+
+@media only screen and (min-width: 1366px) {
+}

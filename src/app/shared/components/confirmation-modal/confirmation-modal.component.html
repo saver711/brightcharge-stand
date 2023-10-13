@@ -1,0 +1,28 @@
+<p-dialog
+  class="confirmation-dialog"
+  [(visible)]="showDialog"
+  [modal]="true"
+  [dismissableMask]="true"
+  [draggable]="false"
+  [resizable]="false"
+  (visibleChange)="closeModal()">
+  <ng-template pTemplate="header">
+    <h5 class="title">{{ header }}</h5>
+  </ng-template>
+  <ng-content select="[paragraph]"></ng-content>
+  <ng-content select="[data]"></ng-content>
+  <ng-content select="[warning-msg]"></ng-content>
+  <ng-content select="[loading-msg]"></ng-content>
+  <ng-content select="[error-msg]"></ng-content>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      (click)="closeModal()"
+      label="Close"
+      styleClass="p-button-text cancel"></p-button>
+    <p-button
+      (click)="confirmationAction()"
+      [label]="confirmLabel"
+      styleClass="p-button-text confirm"></p-button>
+  </ng-template>
+</p-dialog>

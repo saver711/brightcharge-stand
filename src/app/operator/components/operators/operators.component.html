@@ -1,0 +1,114 @@
+<div class="actions-header">
+  <h1 class="actions-header__title">Operators</h1>
+  <div class="actions-header__btns">
+    <a routerLink="new">
+      <p-button icon="pi pi-plus-circle" label="Add New"></p-button>
+    </a>
+  </div>
+</div>
+
+<bs-confirmation-modal
+  [showDialog]="deleteDialogVisibility"
+  [header]="'Delete Data'"
+  (ConfirmDialog)="deleteOperators()"
+  (closeDialog)="hideDeleteDialog()">
+  <p paragraph>Are you sure you want to delete the following ?</p>
+  <div data class="dataList">
+    <ul>
+      <li *ngFor="let operator of selectedOperatorName">{{ operator }}</li>
+    </ul>
+  </div>
+  <div warning-msg class="warning-msg">
+    <i class="pi pi-exclamation-triangle"></i>
+    <h6>
+      Data deleted can’t be restored again, you may have to contact customer
+      support to restore any data deleted.
+    </h6>
+  </div>
+  <div loading-msg *ngIf="isDeleteLoading">
+    <p-messages severity="info" class="loading-msg margin">
+      <ng-template pTemplate>
+        <div class="Processing-Message">
+          <img
+            class="Ellipse-2 spin"
+            src="assets/images/processing-spinner.svg"
+            alt="Processing Message" />
+          <p class="message">Deleting data, please wait ....</p>
+        </div>
+      </ng-template>
+    </p-messages>
+  </div>
+
+  <p-messages
+    severity="error"
+    class="margin"
+    error-msg
+    *ngIf="hasChargePoints && showDeletionStatusMessage">
+    <ng-template pTemplate>
+      <div class="error-Message">
+        <i class="pi pi-times-circle"></i>
+        <p
+          class="message"
+          *ngIf="
+            hasChargePoints && selectedOperatorName.length > 1;
+            else hasNoChargePoints
+          ">
+          Some of operators can’t be deleted as they have active charge points,
+          please remove their charge points first before deleting.
+        </p>
+        <p
+          class="message"
+          *ngIf="
+            hasChargePoints && selectedOperatorName.length === 1;
+            else hasNoChargePoints
+          ">
+          {{ selectedOperatorName[0] }} can’t be deleted as cpo has active
+          charge points, please remove it’s charge points first before deleting.
+        </p>
+        <ng-template class="message" #hasNoChargePoints>
+          <p>{{ errorMessage }}</p>
+        </ng-template>
+        <button
+          title="close"
+          (click)="hideErrMsg()"
+          class="close-icon"></button>
+      </div>
+    </ng-template>
+  </p-messages>
+</bs-confirmation-modal>
+
+<bs-confirmation-toast
+  [life]="3000"
+  [toastWidth]="{ '2000px': { width: '42rem' } }">
+</bs-confirmation-toast>
+
+<bs-operator-advanced-search
+  [position]="searchDialogPosition"
+  (passAppliedFilters)="getAppliedFilters($event)"
+  [visibility]="searchDialogVisibility"
+  (triggerFilter)="filterTable()"
+  (onShowEmitter)="onAdvancedSearchShow()"
+  [searchForm]="advancedSearchForm"
+  [formSubmitted]="advancedSearchSubmitted"
+  (handleClose)="onClose()"></bs-operator-advanced-search>
+<div class="mt-5"></div>
+
+<div>
+  <bs-table
+    [entities]="operators?.content || []"
+    [totalRecords]="tableTotalRecords"
+    [columns]="allTableColumns"
+    [loading]="loadingOperators"
+    searchInput="name"
+    (emitDeletion)="showDeleteDialogForMore()"
+    (handleOpenAdvancedSearch)="openAdvancedSearch()"
+    (selectedEntitiesChange)="onSelectedOperatorsChange($event)"
+    [appliedFilters]="appliedFilters"
+    (deleteFilterEmitter)="onDeleteFilter($event)"
+    [actionItems]="actionItems"
+    (passActiveRow)="setActiveRow($event)"
+    (loadPage)="getOperators($event)">
+  </bs-table>
+</div>
+
+<!-- [advancedSearchForm]="advancedSearchForm" -->

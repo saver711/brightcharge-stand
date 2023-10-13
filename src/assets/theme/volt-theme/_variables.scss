@@ -1,0 +1,90 @@
+// Theme Specific Variables
+$white: #fff;
+$black: #000;
+
+$primary-500: #517bbf;
+$primary-600: #2d56a2;
+$primary-700: #163c7a;
+$primary-800: #0c2c5b;
+$primary-900: #1b1d3d;
+
+$secondary-500: #def2f9;
+$secondary-600: #a5d9eb;
+$secondary-700: #46a2c6;
+$secondary-800: #2291bc;
+$secondary-900: #6bc4ef;
+
+$gray-500: #e4e7ec;
+$gray-600: #98a2b3;
+$gray-700: #667085;
+$gray-800: #475467;
+$gray-900: #101828;
+
+$success-500: #daf5e3;
+$success-600: #32d583;
+$success-700: #12b76a;
+$success-800: #027a48;
+$success-900: #05603a;
+
+$error-500: #fee4e2;
+$error-600: #f97066;
+$error-700: #d92d20;
+$error-800: #b42318;
+$error-900: #912018;
+
+$warning-500: #ffecda;
+$warning-600: #fec84b;
+$warning-700: #fdb022;
+$warning-800: #f79009;
+$warning-900: #dc6803;
+
+// Mandatory Designer Variables
+@import './variables/general';
+@import './variables/form';
+@import './variables/button';
+@import './variables/panel';
+@import './variables/_data';
+@import './variables/_overlay';
+@import './variables/_message';
+@import './variables/_menu';
+@import './variables/_media';
+@import './variables/_misc';
+
+:root {
+  --primary-800: #0c2c5b;
+  --primary-500: #517bbf;
+  --secondary-900: #6bc4ef;
+  --primary-900: #1b1d3d;
+  --primary-700: #163c7a;
+  --primary-600: #2d56a2;
+  --secondary-700: #46a2c6;
+  --secondary-800: #2291bc;
+  --secondary-500: #def2f9;
+  --secondary-600: #a5d9eb;
+  --gray-900: #101828;
+  --gray-800: #475467;
+  --gray-600: #98a2b3;
+  --gray-700: #667085;
+  --gray-500: #e4e7ec;
+  --error-900: #912018;
+  --error-800: #b42318;
+  --error-700: #d92d20;
+  --error-600: #f97066;
+  --error-500: #fee4e2;
+  --success-900: #05603a;
+  --success-800: #027a48;
+  --success-700: #12b76a;
+  --success-600: #32d583;
+  --success-500: #daf5e3;
+  --warning-900: #dc6803;
+  --warning-800: #f79009;
+  --warning-700: #fdb022;
+  --warning-600: #fec84b;
+  --warning-500: #ffecda;
+
+  --white: #fff;
+  --black: #000;
+}
+[dir='rtl'] {
+  --font-family: 'Almarai', sans-serif;
+}

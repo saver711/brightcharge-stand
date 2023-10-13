@@ -1,0 +1,7 @@
+<div class="flex flex-col items-center gap-y-4" [class.gap-y-4]="message">
+  <img
+    class="ellipse-2 spin w-5"
+    src="assets/images/processing-spinner.svg"
+    alt="Processing Message" />
+  <p class="message" *ngIf="message">{{ message }}</p>
+</div>

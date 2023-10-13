@@ -1,0 +1,130 @@
+<div class="login__formContainer">
+  <img class="logo" src="/assets/images/logo-text.svg" alt="volt edge logo" />
+  <h2 class="c-gray-900 login__head">{{ 'login-form.head' | translate }}</h2>
+  <p class="login__helper-text c-gray-700">
+    {{ 'login-form.description' | translate }}
+  </p>
+
+  <form
+    class="login-form"
+    (ngSubmit)="loginUser($event)"
+    [formGroup]="authForm">
+    <div class="login-form__inputs">
+      <label for="username" class="c-gray-800"
+        >{{ 'login-form.username-lbl' | translate }}
+        <span class="required-star">*</span></label
+      >
+      <div class="input-with-icons two-icons-start-end">
+        <i class="pi icon start pi-user"></i>
+        <i
+          class="pi icon end pi-times"
+          bsClearInput
+          [targetControl]="authForm.get('username')"
+          [targetInput]="usernameRef"></i>
+        <input
+          id="username"
+          formControlName="username"
+          [placeholder]="'login-form.username-placeholder' | translate"
+          type="text"
+          pInputText
+          aria-describedby="username-help"
+          #usernameRef
+          bsInputBetterValidation
+          [formSubmitted]="submitted"
+          [helperElement]="username_help" />
+      </div>
+      <p #username_help class="input-error-helper" id="username-help">
+        {{ 'login-form.username-validation-msg' | translate }}
+      </p>
+    </div>
+    <div class="login-form__inputs">
+      <label for="password" class="c-gray-800"
+        >{{ 'login-form.password-lbl' | translate }}
+        <span class="required-star">*</span></label
+      >
+      <div class="input-with-icons two-icons-start-end-plus-one">
+        <img class="icon start" src="/assets/icons/key-icon.svg" alt="" />
+        <i
+          class="pi icon end pi-times"
+          bsClearInput
+          [targetControl]="authForm.get('password')"
+          [targetInput]="passwordRef"></i>
+        <p-password
+          id="password"
+          [ngClass]="{
+            'ng-dirty': shouldShowPasswordError()
+          }"
+          [toggleMask]="true"
+          formControlName="password"
+          inputId="password"
+          [feedback]="false"
+          aria-describedby="password-help"
+          [placeholder]="'login-form.password-placeholder' | translate"
+          #passwordRef
+          (onFocus)="passwordInputFocused = true"
+          (onBlur)="passwordInputFocused = false">
+        </p-password>
+      </div>
+      <p
+        class="input-error-helper"
+        *ngIf="shouldShowPasswordError()"
+        id="password-help">
+        {{ 'login-form.password-validation-msg' | translate }}
+      </p>
+    </div>
+    <div class="remember-forgot">
+      <div class="remember-me">
+        <p-inputSwitch formControlName="rememberMe"></p-inputSwitch>
+        <span class="label-typo c-gray-800">
+          {{ 'login-form.remember-me' | translate }}
+        </span>
+      </div>
+
+      <a [routerLink]="'/forgot-password'" class="paragraph-typo c-gray-700">
+        {{ 'login-form.forget-password' | translate }}
+      </a>
+    </div>
+    <p-button
+      [disabled]="isTryingToLogin"
+      styleClass="login-form__btn w-full"
+      [label]="'login-form.login-btn' | translate | uppercase"
+      type="submit"></p-button>
+  </form>
+
+  <!-- SENDING... -->
+  <p-messages *ngIf="isTryingToLogin" severity="info" class="no-border margin">
+    <ng-template pTemplate>
+      <i class="pi pi-spinner spin"></i>
+      <p>Logging In, please wait ...</p>
+    </ng-template>
+  </p-messages>
+
+  <!-- ERROR -->
+  <p-messages
+    *ngIf="!afterNavigationMessage && !loginSuccessfully && showStatusMessage"
+    severity="error"
+    class="no-border margin">
+    <ng-template pTemplate>
+      <i class="pi pi-times-circle"></i>
+      <p>
+        {{ errorMessage }}
+      </p>
+      <i class="pi pi-times message-close" (click)="closeMessage()"> </i>
+    </ng-template>
+  </p-messages>
+
+  <!-- AFTER NAVIGATION ERROR -->
+
+  <p-messages
+    *ngIf="afterNavigationMessage && showStatusMessage"
+    severity="error"
+    class="no-border margin">
+    <ng-template pTemplate>
+      <i class="pi pi-times-circle"></i>
+      <p>
+        {{ afterNavigationMessage }}
+      </p>
+      <i class="pi pi-times message-close" (click)="closeMessage()"> </i>
+    </ng-template>
+  </p-messages>
+</div>

@@ -1,0 +1,32 @@
+<div class="amenities">
+  <h2>Amenities</h2>
+
+  <span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input
+      type="text"
+      placeholder="Search amenities"
+      pInputText
+      (ngModelChange)="handleSearchAmenities($event)"
+      [(ngModel)]="searchValue" />
+  </span>
+
+  <div class="checkboxs">
+    <form [formGroup]="amenitiesForm" class="contents">
+      <div
+        *ngFor="let amenity of filteredAmenities"
+        class="items-center flex gap-.8">
+        <p-checkbox
+          name="amenities"
+          [value]="amenity.value"
+          [formControl]="amenities"
+          [inputId]="amenity.name"></p-checkbox>
+        <img
+          src="assets/icons/{{ amenity.icon }}"
+          class="w-2.4 h-2.4"
+          alt="{{ amenity.icon }}" />
+        <label [for]="amenity.name">{{ amenity.name }}</label>
+      </div>
+    </form>
+  </div>
+</div>

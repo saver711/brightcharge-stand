@@ -1,0 +1,17 @@
+<p-toast
+  position="bottom-right"
+  (onClose)="onReject()"
+  [baseZIndex]="5000"
+  [life]="life"
+  [breakpoints]="toastWidth">
+  <ng-template let-message pTemplate="message">
+    <div>
+      <div class="msg-summary">
+        <i [ngClass]="messageSeverity[message.severity]"></i>
+        <h4 class="p-toast-summary">{{ message.summary }}</h4>
+      </div>
+      <p class="p-toast-detail">{{ message.detail }}</p>
+      <ng-content select="[action-btns]"></ng-content>
+    </div>
+  </ng-template>
+</p-toast>

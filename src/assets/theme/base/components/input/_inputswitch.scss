@@ -1,0 +1,71 @@
+@use 'sass:math';
+
+.p-inputswitch {
+  width: $inputSwitchWidth;
+  height: $inputSwitchHeight;
+
+  .p-inputswitch-slider {
+    // background: $inputSwitchSliderOffBg;
+    transition: $formElementTransition;
+    // border-radius: $inputSwitchBorderRadius;
+    border-radius: 1.4rem;
+    border: solid 1px $gray-600;
+
+    &:before {
+      //   background: $inputSwitchHandleOffBg;
+      background: $gray-600;
+      width: $inputSwitchHandleWidth;
+      height: $inputSwitchHandleHeight;
+      left: $inputSwitchSliderPadding;
+      [dir='rtl'] & {
+        right: $inputSwitchSliderPadding;
+        left: auto;
+      }
+      margin-top: math.div(-1 * $inputSwitchHandleHeight, 2);
+      border-radius: $inputSwitchHandleBorderRadius;
+      transition-duration: $transitionDuration;
+    }
+  }
+
+  &.p-inputswitch-checked {
+    .p-inputswitch-slider:before {
+      transform: translateX($inputSwitchHandleWidth);
+      [dir='rtl'] & {
+        transform: translateX(-$inputSwitchHandleWidth);
+      }
+    }
+  }
+
+  &.p-focus {
+    .p-inputswitch-slider {
+      @include focused();
+    }
+  }
+
+  &:not(.p-disabled):hover {
+    .p-inputswitch-slider {
+      background: $inputSwitchSliderOffHoverBg;
+    }
+  }
+
+  &.p-inputswitch-checked {
+    .p-inputswitch-slider {
+      //   background: $inputSwitchSliderOnBg;
+      background: $primary-600;
+
+      &:before {
+        background: $inputSwitchHandleOnBg;
+      }
+    }
+
+    &:not(.p-disabled):hover {
+      .p-inputswitch-slider {
+        background: $inputSwitchSliderOnHoverBg;
+      }
+    }
+  }
+}
+
+p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
+  @include invalid-input();
+}

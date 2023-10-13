@@ -1,0 +1,59 @@
+@import "variables";
+
+.pointer {
+  cursor: pointer;
+}
+.input-error-helper {
+  color: $error-700;
+  margin-top: 5px;
+}
+.w-full {
+  width: 100%;
+}
+.iw-full {
+  width: 100% !important;
+}
+.hidden {
+  display: none;
+}
+.relative {
+  position: relative;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.required-star {
+  margin-inline-start: 4px;
+  color: $error-700;
+}
+
+.table-search {
+  width: 45rem;
+  height: 4.8rem;
+}
+
+.optional-mark {
+  color: $gray-700;
+  font-weight: normal;
+}
+
+.input-group {
+  label {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: $gray-800;
+
+    &:after {
+      content: ' *';
+      color: $error-700;
+    }
+  }
+
+  .error-message {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    color: $error-700;
+  }
+}

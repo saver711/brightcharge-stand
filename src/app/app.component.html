@@ -1,0 +1,6 @@
+<bs-loading-overlay
+  [blocked]="isResolving"
+  message="Loading data, please wait..."></bs-loading-overlay>
+<div *ngIf="!isResolving">
+  <router-outlet></router-outlet>
+</div>

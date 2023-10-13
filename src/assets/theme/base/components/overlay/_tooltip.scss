@@ -1,0 +1,84 @@
+.p-tooltip {
+  max-width: max-content;
+  .p-tooltip-text {
+    // background: $tooltipBg;
+    background: $primary-900;
+    color: $tooltipTextColor;
+    // padding: $tooltipPadding;
+    padding: 1.6rem;
+    box-shadow: $inputOverlayShadow;
+    // border-radius: $borderRadius;
+    border-radius: 8px;
+    font-size: 1.6rem;
+  }
+
+  &.p-tooltip-right,
+  &.p-tooltip-left {
+    .p-tooltip-arrow {
+      transform: translateY(-3px);
+      border-top-width: 7px;
+      border-bottom-width: 7px;
+    }
+  }
+
+  &.p-tooltip-right {
+    .p-tooltip-arrow {
+      left: -6px;
+      border-right-width: 10px;
+      border-right-color: $primary-900;
+    }
+  }
+
+  &.p-tooltip-left {
+    .p-tooltip-arrow {
+      right: -6px;
+      border-left-width: 10px;
+      border-left-color: $primary-900;
+    }
+  }
+
+  &.p-tooltip-top {
+    .p-tooltip-arrow {
+      bottom: -6px;
+      border-top-width: 10px;
+      border-top-color: $primary-900;
+    }
+  }
+
+  &.p-tooltip-bottom {
+    .p-tooltip-arrow {
+      border-bottom-color: $primary-900;
+    }
+  }
+
+  &.white {
+    .p-tooltip-text {
+      background: $white;
+      color: $gray-900;
+    }
+
+    &.p-tooltip-right {
+      .p-tooltip-arrow {
+        border-right-color: $white;
+      }
+    }
+
+    &.p-tooltip-left {
+      .p-tooltip-arrow {
+        border-left-color: $white;
+      }
+    }
+
+    &.p-tooltip-top {
+      .p-tooltip-arrow {
+        border-top-color: $white;
+      }
+    }
+
+    &.p-tooltip-bottom {
+      .p-tooltip-arrow {
+        border-bottom-color: $white;
+      }
+    }
+  }
+}

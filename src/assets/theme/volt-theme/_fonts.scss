@@ -1,0 +1,74 @@
+/* Almarai */
+@font-face {
+  font-family: Almarai;
+  src:
+    local(Almarai-Regular),
+    url('../../fonts/almarai/Almarai-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: Almarai;
+  src:
+    local(Almarai-Bold),
+    url('../../fonts/almarai/Almarai-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+}
+/* ./ Almarai */
+
+/* Barlow */
+@font-face {
+  font-family: Barlow;
+  src:
+    local(Barlow-Regular),
+    url('../../fonts/barlow/Barlow-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: Barlow;
+  src:
+    local(Barlow-Medium),
+    url('../../fonts/barlow/Barlow-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: Barlow;
+  src:
+    local(Barlow-SemiBold),
+    url('../../fonts/barlow/Barlow-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: Barlow;
+  src:
+    local(Barlow-Bold),
+    url('../../fonts/barlow/Barlow-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+}
+/* ./ Barlow */
+
+$weights: (
+  '400': 400,
+  '500': 500,
+  '600': 600,
+  '700': 700,
+  '800': 800,
+  '900': 900,
+);
+
+@each $name, $weight in $weights {
+  .w-#{$name} {
+    font-weight: #{$weight};
+  }
+}

@@ -1,0 +1,13 @@
+stages:
+  - deploy
+
+deploy-staging:
+  stage: deploy
+  tags:
+    - cpms
+  script:
+    - sudo docker image prune -f
+    - sudo docker-compose -f docker-compose.yaml build
+    - sudo docker-compose -f docker-compose.yaml up -d
+  only:
+    - web

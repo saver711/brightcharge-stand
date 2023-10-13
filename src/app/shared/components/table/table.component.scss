@@ -1,0 +1,204 @@
+@import './variables';
+.table-value {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: $gray-800;
+  height: 8rem;
+  .image-with-text,
+  .image-with-link {
+    display: flex;
+    flex-direction: row;
+    gap: 1.6rem;
+    align-items: center;
+    .entity-photo {
+      height: 4.2rem;
+      width: 4.2rem;
+      border-radius: 50%;
+    }
+  }
+  .highlighted,
+  .image-with-link,
+  .link {
+    color: $secondary-800;
+  }
+  .not-assigned,
+  .status {
+    padding: 1.2rem;
+    border-radius: 5rem;
+    width: 10.6rem;
+    font-size: 1.4rem;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .not-assigned {
+    background: $gray-500;
+  }
+  .available {
+    background: $success-500;
+    color: $success-800;
+  }
+  .unavailable {
+    background: $error-500;
+    color: $error-800;
+  }
+  .pi-check-circle {
+    color: $success-700;
+  }
+  .pi-times-circle {
+    color: $error-700;
+  }
+
+  .dot {
+    &__circle {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+
+      &.available {
+        background-color: $success-700;
+      }
+      &.reserved {
+        background-color: $warning-700;
+      }
+      &.charging {
+        background-color: $secondary-700;
+      }
+      &.unavailable,
+      &.faulted {
+        background-color: $gray-600;
+      }
+    }
+  }
+}
+
+.search-input {
+  border-start-end-radius: 0 !important;
+  border-end-end-radius: 0 !important;
+  height: 100%;
+}
+
+.table-mini-actions {
+  display: flex;
+  gap: 1.6rem;
+
+  .delete-icon {
+    height: 2.4rem;
+    .pi {
+      padding-top: 0.15rem;
+      padding-bottom: 0.15rem;
+      font-size: 2rem;
+    }
+  }
+}
+
+.applied-filters {
+  display: flex;
+  width: 100%;
+  gap: 16px;
+  margin-top: 2.4rem;
+  &__label {
+    display: inline-block;
+    text-wrap: nowrap;
+  }
+
+  &__list {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    gap: 0.8rem;
+    border-radius: 5rem;
+    border: solid 1px $secondary-600;
+    background-color: $secondary-500;
+    height: 3.4rem;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    span {
+      font-weight: 500;
+      font-size: 1.6rem;
+
+      &:first-of-type {
+        color: $gray-800;
+        width: max-content;
+      }
+
+      &:last-of-type {
+        color: $gray-900;
+        width: max-content;
+      }
+    }
+  }
+}
+
+button:disabled {
+  color: unset;
+  opacity: 0.5;
+}
+.loading-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  gap: 1.6rem;
+  padding: 12rem 9.6rem;
+}
+.empty-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  gap: 1.6rem;
+  padding: 6.4rem 9.6rem;
+  .empty-state-img {
+    width: 14.4rem;
+    height: 13.5rem;
+  }
+  .no-data-label {
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+    color: $gray-900;
+    font-weight: 900;
+    padding-top: 1.6rem;
+  }
+  .no-data-paragraph {
+    text-align: center;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 400;
+  }
+}
+
+.show-hide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  .show-hide-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.8rem;
+    flex-grow: 1;
+  }
+}
+:host ::ng-deep {
+  .p-dialog-top .p-dialog {
+    margin-top: 7.2rem;
+  }
+}
+
+// p-menu {
+//   position: relative;
+// }
+
+// ::ng-deep .p-menu.p-menu-overlay {
+//   top: 16px !important;
+//   left: -110px !important;
+// }

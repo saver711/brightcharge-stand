@@ -1,0 +1,114 @@
+//@import "../../../user-management/components/anonymous-user-section/anonymous-user-section.component.scss";
+
+@import './variables';
+
+.public {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__design {
+    background-color: #f9f9f9;
+    padding: 3.2rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &--parent {
+      margin: 0 auto;
+    }
+  }
+
+  &__actions {
+    padding: 2.4rem 1.6rem 3.2rem;
+    order: -1;
+
+    &__topLinks {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &.inverted {
+        flex-direction: row-reverse;
+      }
+    }
+
+    &__back-to-login {
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      i {
+        font-size: 2.4rem;
+        margin-inline-end: 0.8rem;
+      }
+    }
+
+    &__Links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 1.6rem;
+      color: $gray-700;
+      text-align: center;
+      // margin-top: auto;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.bottom__image {
+  display: none;
+}
+
+// MEDIA
+
+@media only screen and (min-width: 414px) {
+  .public {
+    &__actions {
+      padding: 2.4rem 2.4rem 3.2rem;
+    }
+    &__design {
+      padding: 3.2rem 9.7rem;
+    }
+  }
+}
+@media only screen and (min-width: 744px) {
+  .public {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    &__actions {
+      display: flex;
+      flex-direction: column;
+      order: 1;
+
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      justify-content: space-between;
+    }
+    &__design {
+      padding: 3.2rem 6.65rem;
+    }
+  }
+}
+
+@media only screen and (min-width: 1366px) {
+  .public {
+    &__design {
+      padding: 3.2rem 2rem 0;
+      &--parent {
+        max-width: 55rem;
+      }
+    }
+  }
+
+  .bottom__image {
+    display: block;
+    max-width: 70.3rem;
+    margin: 6.6rem auto 0;
+  }
+}

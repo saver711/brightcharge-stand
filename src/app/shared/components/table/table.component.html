@@ -1,0 +1,414 @@
+<div class="card">
+  <p-table
+    #table
+    [value]="entities"
+    [columns]="selectedColumns"
+    [rows]="pageSize"
+    [lazy]="true"
+    (onLazyLoad)="loadRecords($event)"
+    [totalRecords]="totalRecords"
+    dataKey="id"
+    (onFilter)="onFilter($event)"
+    selectionMode="multiple"
+    [(selection)]="selectedEntities"
+    (selectionChange)="onSelectionChange($event)"
+    [selectAll]="isAllSelected"
+    (selectAllChange)="onSelectAllChange($event)"
+    [loading]="loading"
+    [showLoader]="false"
+    [paginator]="true"
+    [selectionPageOnly]="true"
+    [reorderableColumns]="true"
+    [scrollable]="true"
+    scrollHeight="flex"
+    [tableStyle]="{ 'min-width': '60rem' }">
+    <!-- paginatorDropdownAppendTo="paginatorleft" -->
+    <!-- TOP -->
+    <ng-template pTemplate="caption">
+      <div class="flex justify-between items-center">
+        <form
+          [formGroup]="searchForm"
+          (ngSubmit)="submitFilterInput()"
+          class="table-search p-inputgroup">
+          <div class="input-with-icons one-icon-end">
+            <button
+              [disabled]="loading"
+              aria-label="Clear"
+              (click)="filter()"
+              type="button"
+              bsClearInput
+              [targetControl]="searchForm.get(searchInput)"
+              [targetInput]="searchInputRef">
+              <i class="pi icon end pi-times"></i>
+            </button>
+            <input
+              class="iw-full search-input"
+              #searchInputRef
+              id="searchInput"
+              pInputText
+              placeholder="Search by {{ searchInput }} ..."
+              type="text"
+              [formControlName]="searchInput"
+              aria-label="search-input" />
+          </div>
+          <button
+            [disabled]="loading"
+            type="submit"
+            title="Search"
+            class="p-inputgroup-addon">
+            <img alt="dropdown icon" src="/assets/icons/search.svg" />
+          </button>
+        </form>
+
+        <div class="items-center table-mini-actions">
+          <button
+            tooltipPosition="top"
+            [pTooltip]="deleteMode | titlecase"
+            tooltipStyleClass="white"
+            [disabled]="!selectedEntities.length"
+            (click)="deleteSelected()"
+            aria-label="Delete"
+            class="delete-icon">
+            <i
+              class="pi"
+              [ngClass]="{
+                'c-error-700': !!selectedEntities.length,
+                'pi-trash': deleteMode === 'delete',
+                'pi-inbox': deleteMode === 'archive'
+              }"></i>
+          </button>
+          <span class="separator"></span>
+          <!-- FIXME: change left to be dynamic -->
+          <button
+            (click)="openAdvancedSearch()"
+            tooltipPosition="top"
+            tooltipStyleClass="white"
+            [pTooltip]="
+              searchForm.get(searchInput)?.value
+                ? 'Clear search bar first'
+                : 'Advanced search'
+            "
+            [disabled]="searchForm.get(searchInput)?.value"
+            aria-label="Filter"
+            class="relative">
+            <span
+              *ngIf="
+                appliedFilters.length && !searchForm.get(searchInput)?.value
+              "
+              class="red-dot"></span>
+            <img
+              src="../../../../assets/icons/filter-icon.svg"
+              alt="Filter icon" />
+          </button>
+
+          <button
+            (click)="openColumnsEditor()"
+            tooltipPosition="top"
+            tooltipStyleClass="white"
+            pTooltip="Show/Hide Columns"
+            aria-label="Show/Hide Columns">
+            <img
+              src="../../../../assets/icons/grid-icon.svg"
+              alt="Show/Hide Columns icon" />
+          </button>
+          <span class="separator"></span>
+          <button
+            tooltipPosition="top"
+            tooltipStyleClass="white"
+            pTooltip="Refresh Data"
+            (click)="filter()"
+            aria-label="Refresh">
+            <img
+              src="../../../../assets/icons/refresh-icon.svg"
+              alt="refresh icon" />
+          </button>
+          <!-- <span class="separator"></span> -->
+        </div>
+      </div>
+
+      <!-- APPLIED FILTERS -->
+
+      <div
+        *ngIf="!searchForm.get(searchInput)?.value && appliedFilters.length"
+        class="applied-filters">
+        <span class="label-typo applied-filters__label">Filters Applied:</span>
+
+        <ul class="applied-filters__list">
+          <li
+            class="applied-filters__item"
+            *ngFor="let filter of appliedFilters">
+            <span>{{ filter.title }}:</span>
+            <span>{{ filter.value }}</span>
+            <button
+              (click)="deleteFilter(filter.key)"
+              aria-label="clear filter">
+              <i class="pi pi-times-circle"> </i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+    <!-- TABLE HEADER -->
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th pFrozenColumn style="width: 4rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th
+          style="min-width: 23rem"
+          *ngFor="let col of selectedColumns; let i = index"
+          pFrozenColumn
+          [frozen]="i === 0"
+          [pSortableColumn]="col.field"
+          pReorderableColumn>
+          <p-sortIcon [field]="col.field" class="mr-3"></p-sortIcon
+          >{{ col.header }}
+        </th>
+        <th pFrozenColumn style="width: 4rem">Actions</th>
+      </tr>
+    </ng-template>
+
+    <!--SORTING ICON-->
+    <ng-template pTemplate="sorticon" field="col.field" let-sortOrder>
+      <span *ngIf="sortOrder === 0">
+        <img src="assets/icons/sort-default.svg" alt="Sort Default" />
+      </span>
+
+      <span *ngIf="sortOrder === 1">
+        <img src="assets/icons/sort-up.svg" alt="Sort Up"
+      /></span>
+
+      <span *ngIf="sortOrder === -1"
+        ><img src="assets/icons/sort-up.svg" class="rotate-180" alt="Sort Down"
+      /></span>
+    </ng-template>
+
+    <!-- TABLE BODY -->
+    <ng-template pTemplate="body" let-entity let-columns="columns">
+      <tr>
+        <td pFrozenColumn>
+          <p-tableCheckbox [value]="entity"></p-tableCheckbox>
+        </td>
+        <td
+          *ngFor="let col of selectedColumns; let i = index"
+          pFrozenColumn
+          [frozen]="i === 0"
+          class="table-value">
+          <!-- IMAGE_WITH_TEXT -->
+          <div
+            *ngIf="entity[col.field].type === 'IMAGE_WITH_TEXT'"
+            class="image-with-text">
+            <img
+              [src]="entity[col.field].image"
+              alt="entity photo"
+              class="entity-photo" />
+            <span>{{ entity[col.field].value }}</span>
+          </div>
+          <!-- IMAGE_WITH_LINK -->
+          <a
+            [routerLink]="[entity[col.field].value]"
+            *ngIf="entity[col.field].type === 'IMAGE_WITH_LINK'"
+            class="image-with-link">
+            <img
+              [src]="entity[col.field].image"
+              alt="entity photo"
+              class="entity-photo" />
+            <span>{{ entity[col.field].text }}</span>
+          </a>
+          <!-- TEXT -->
+          <span *ngIf="entity[col.field].type === 'TEXT'">{{
+            entity[col.field].value
+          }}</span>
+          <!-- LINK -->
+          <a
+            [routerLink]="[entity[col.field].value]"
+            *ngIf="entity[col.field].type === 'LINK'"
+            class="link">
+            {{ entity[col.field].text }}
+          </a>
+
+          <!-- HIGHLIGHTED -->
+          <span
+            *ngIf="entity[col.field].type === 'HIGHLIGHTED'"
+            class="highlighted"
+            >{{ entity[col.field].value }}</span
+          >
+          <!-- BOOLEAN -->
+          <span *ngIf="entity[col.field].type === 'BOOLEAN'">
+            <i
+              class="pi"
+              [ngClass]="{
+                'pi-check-circle': entity[col.field].value === true,
+                'pi-times-circle': entity[col.field].value === false
+              }"></i>
+          </span>
+          <!-- STATUS -->
+          <span
+            *ngIf="entity[col.field].type === 'STATUS'"
+            [ngClass]="['status', entity[col.field].value | lowercase]">
+            {{ entity[col.field].value }}
+          </span>
+
+          <!-- TOGGLE -->
+          <span *ngIf="entity[col.field].type === 'TOGGLE'">
+            <p-inputSwitch
+              (onChange)="onToggle($event, entity.id)"
+              [(ngModel)]="entity[col.field].value"></p-inputSwitch>
+          </span>
+
+          <!-- DATE_TIME -->
+          <div
+            *ngIf="
+              entity[col.field].type === 'DATE_TIME' && entity[col.field].value
+            ">
+            <p>{{ entity[col.field].value.date }},</p>
+            <p>{{ entity[col.field].value.time }}</p>
+          </div>
+
+          <!-- MULTI_DOTS_WITH_LINK -->
+          <ul *ngIf="entity[col.field].type === 'MULTI_DOTS_WITH_LINK'">
+            <li *ngFor="let dot of entity[col.field].value" class="dot">
+              <a [routerLink]="dot.url">
+                <span
+                  tooltipPosition="top"
+                  tooltipStyleClass="white"
+                  [pTooltip]="dot.status | titlecase"
+                  [ngClass]="['dot__circle me-2', dot.status]"></span>
+
+                <span class="highlighted font-bold me-1">{{ dot.text }}</span>
+                <span class="text-gray-600">{{ dot.placeholder }}</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- NOT ASSIGNED -->
+          <span
+            *ngIf="
+              !entity[col.field].value &&
+              entity[col.field].value !== 0 &&
+              entity[col.field].value !== false
+            "
+            class="not-assigned"
+            >Not Assigned</span
+          >
+        </td>
+        <td pFrozenColumn class="text-center">
+          <p-menu
+            [appendTo]="table"
+            #menu
+            [model]="actionItems"
+            [popup]="true"></p-menu>
+          <button
+            aria-label="actions"
+            type="button"
+            (click)="emitActiveRow(entity); menu.toggle($event)">
+            <i class="pi pi-ellipsis-v"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <!-- LOADING -->
+
+    <ng-template pTemplate="loadingbody" let-rowspan="columns">
+      <tr>
+        <td colspan="100%">
+          <div class="loading-body">
+            <bs-loading />
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <!-- EMPTY -->
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="100%">
+          <div class="empty-body">
+            <img
+              src="assets/images/empty-state.svg"
+              class="empty-state-img"
+              alt="No Data" />
+            <p class="no-data-label">No Data Found</p>
+            <div class="no-data-paragraph">
+              <p class="c-gray-700">
+                You didn't add any data yet, you can go ahead
+              </p>
+              <p class="c-gray-700">and create a new one</p>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <!--Pagination-->
+    <ng-template pTemplate="paginatorleft">
+      <div class="flex items-center gap-1.6">
+        <span class="c-gray-800">
+          <span class="font-medium">{{ totalRecords }} </span> Records</span
+        >
+        <span>|</span>
+        <div class="flex items-center gap-.8">
+          <span>Show</span>
+          <p-dropdown
+            [options]="[5, 10, 25]"
+            [(ngModel)]="pageSize"
+            (ngModelChange)="onPageSizeChange($event)"></p-dropdown>
+          <span class="c-gray-800"> Rows Per Page </span>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p-paginator
+        *ngIf="totalRecords > 0"
+        [rows]="pageSize"
+        [totalRecords]="totalRecords"
+        (onPageChange)="onPageChange($event)"
+        [showPageLinks]="false"
+        [showFirstLastIcon]="false"
+        [showJumpToPageDropdown]="true">
+      </p-paginator>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- SHOW/HIDE COLUMNS -->
+<p-dialog
+  [dismissableMask]="true"
+  header="Show/Hide Columns"
+  [(visible)]="columnsEditorVisibility"
+  position="top"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="show-hide-dialog">
+  <p class="label-typo c-gray-900">
+    Select columns you want to be shown in the table
+  </p>
+
+  <ul class="show-hide-list">
+    <li *ngFor="let column of columns" class="show-hide-item">
+      <p-checkbox
+        [disabled]="column.notHidable!"
+        name="group"
+        [value]="column"
+        [(ngModel)]="checkedColumns"
+        [inputId]="column.field"></p-checkbox>
+      <label [for]="column.field" class="heading-6-typo">{{
+        column.header
+      }}</label>
+    </li>
+  </ul>
+  <ng-template pTemplate="footer">
+    <p-button
+      [disabled]="checkedColumns === defaultColumns"
+      label="Reset"
+      styleClass="p-button-transparent"
+      (onClick)="resetColumns()"></p-button>
+    <p-button
+      [disabled]="checkedColumns === defaultColumns"
+      label="Apply"
+      styleClass=""
+      (onClick)="applyColumns()"></p-button>
+  </ng-template>
+</p-dialog>

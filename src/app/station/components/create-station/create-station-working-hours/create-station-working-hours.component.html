@@ -1,0 +1,64 @@
+<div class="working-hours">
+  <h2>Working Hours</h2>
+
+  <div class="timer-switch">
+    <p-inputSwitch
+      [(ngModel)]="checked"
+      (onChange)="allDayChecked()"></p-inputSwitch>
+    <span class="label-typo c-gray-800"> This location operates 24/7 </span>
+  </div>
+
+  <div [formGroup]="AddStationForm" *ngIf="!checked">
+    <div class="header">
+      <p class="title"></p>
+      <p>Opening Time</p>
+      <p class="title">Closing Time</p>
+      <p></p>
+    </div>
+    <div class="grid grid-cols-1 gap-4" formArrayName="workingHours">
+      <div
+        *ngFor="let hoursControl of hoursControls.controls; let i = index"
+        [formGroupName]="i"
+        class="row-content">
+        <div>
+          <h5>{{ hoursControl.value.day }}</h5>
+        </div>
+        <div>
+          <p-inputMask
+            #openingTime
+            [id]="'openingTime' + i"
+            class="timeInput"
+            mask="99:99"
+            formControlName="openingTime"
+            placeholder="07:00"></p-inputMask>
+          <p-dropdown
+            class="dropdown-timer"
+            [options]="timeFrom"
+            formControlName="fromTime"></p-dropdown>
+        </div>
+        <div>
+          <p-inputMask
+            #closingTime
+            [id]="'closingTime' + i"
+            class="timeInput"
+            mask="99:99"
+            formControlName="closingTime"
+            placeholder="09:00"></p-inputMask>
+          <p-dropdown
+            class="dropdown-timer"
+            [options]="timeTo"
+            formControlName="toTime"></p-dropdown>
+        </div>
+        <div class="checkbox">
+          <p-checkbox
+            value="true"
+            inputId="ny"
+            [id]="'openAllDay' + i"
+            formControlName="openAllDay"
+            (onChange)="disableFields(i, $event)"></p-checkbox>
+          <label for="ny">Working All Day</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

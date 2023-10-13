@@ -1,0 +1,21 @@
+.legal-container {
+  max-width: 111.5rem;
+
+  .p-divider.p-divider-horizontal {
+    &:last-of-type {
+      display: none;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .p-divider.p-divider-horizontal {
+    margin: 3.1rem auto 3.2rem;
+  }
+}
+
+:host ::ng-deep {
+  .p-message-wrapper {
+    margin-top: 0.8rem;
+  }
+}
